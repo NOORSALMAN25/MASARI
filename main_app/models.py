@@ -11,6 +11,9 @@ class University(models.Model):
     phone = models.IntegerField()
     image = models.ImageField(upload_to='main_app/static/uploads/', default='')
 
+    def __str__(self):
+        return self.name
+
 class Program(models.Model):
     name = models.CharField(max_length=100)
     level = models.CharField(max_length=100)
