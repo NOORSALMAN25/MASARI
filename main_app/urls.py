@@ -9,5 +9,5 @@ path('universities/', views.universities_index, name='index'),
 path('universities/<int:university_id>/', views.universities_detail, name='detail'),
 
 #signup
-path('accounts/signup', views.signup, name='signup')
+path('accounts/signup/', views.signup, name='signup')
 ]
