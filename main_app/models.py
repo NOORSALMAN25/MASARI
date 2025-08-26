@@ -10,3 +10,18 @@ class University(models.Model):
     email = models.TextField(max_length=50)
     phone = models.IntegerField()
     image = models.ImageField(upload_to='main_app/static/uploads/', default='')
+
+class Program(models.Model):
+    name = models.CharField(max_length=100)
+    level = models.CharField(max_length=100)
+    description = models.TextField(max_length=300)
+    duration = models.IntegerField()
+    language = models.CharField(max_length=100)
+    requirements = models.TextField()
+    resources_link = models.TextField(max_length=300)
+
+    university = models.ForeignKey(University, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
