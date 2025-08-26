@@ -4,16 +4,10 @@
 {% else %}
 <div>
   <div>
-    <form method="post" action="{% url 'signup' %}">
-      {% csrf_token %} {{ form.as_p }}
-      <input type="submit" class="btn" value="Sign Up" />
-    </form>
+    <a href="{% url 'signup' %}">Sign Up</a>
   </div>
   <div>
-    <form action="{% url 'login' %}" method="post">
-      {% csrf_token %} {{ form.as_p }}
-      <input type="submit" class="btn" value="Sign In" />
-    </form>
+    <a href="{% url 'login' %}">Sign In</a>
   </div>
 </div>
 {% endif %} {% endblock %}
