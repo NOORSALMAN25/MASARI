@@ -1,8 +1,31 @@
 from django.shortcuts import render , redirect
 from django.http import HttpResponse
+from django.views.generic.edit import CreateView , UpdateView , DeleteView
 from django.contrib.auth.forms import UserCreationForm
+from . models import Question , Answer
 from django.contrib.auth import login
+
 # Create your views here.
+
+class QuestionCreate(CreateView):
+    model = Question
+    fields = ['question_txt' , 'date_posted']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
+class QuestionUpdate(UpdateView):
+    model = Question
+    fields=[ 'question_txt']  
+
+class QuestionDelete(DeleteView):
+    model = Question
+    success_url = '/'     
+
+
+
+
 
 def home(request):
     return render(request , 'home.html')
