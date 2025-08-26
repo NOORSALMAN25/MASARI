@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from .models import University
+# Create your views here.
+
 
 # Create your views here.
 # @login_required(login_url='login')
@@ -11,6 +14,14 @@ def home(request):
 
 def about(request):
     return render(request , 'about.html')
+
+def universities_index(request):
+    universities = University.objects.all()
+    return render(request, 'universities/index.html', { 'universities': universities })
+
+def universities_detail(request, university_id):
+    university = University.objects.get(id=university_id)
+    return render(request, 'universities/detail.html' , {'university': university})
 
 def signup(request):
     error_message = ""
