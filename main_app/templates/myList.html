@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="favorites-page">
+  <h1>My Favorite Programs</h1>
+  {% if favorite_programs %}
+    {% regroup favorite_programs by university as universities %}
+    {% for university in universities %}
+      <div>
+        <div><h3>{{ university.grouper.name }}</h3></div>
+        {% for program in university.list %}
+          <div class="card">
+            <a href="{% url 'program_detail' university_id=program.university.id program_id=program.id %}">
+              <div class="card-content">
+                <h2>{{ program.name }}</h2>
+                <p>Level: {{ program.level }}</p>
+                <p>{{ program.description }}</p>
+                <form action="{% url 'toggle_favorite_program' university_id=program.university.id program_id=program.id %}" method="POST">
+                  {% csrf_token %}
+                  <button type="submit">Remove</button>
+                </form>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>You have no favorite programs yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

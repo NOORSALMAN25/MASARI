@@ -13,6 +13,10 @@ path('universities/<int:university_id>/', views.universities_detail, name='detai
 
 path('universities/<int:university_id>/programs/<int:program_id>/', views.programs_detail, name='program_detail'),
 
+path('universities/<int:university_id>/programs/<int:program_id>/toggle_favorite/', views.favorite_program, name='toggle_favorite_program'),
+
+path('favorites/', views.favorites_list, name='favorites_list'),
+
 #signup
 path('accounts/signup/', views.signup, name='signup')
 ]
