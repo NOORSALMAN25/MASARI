@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>{{  university.name  }}</h1>
+<h1>{{ university.name }}</h1>
 <div class="card">
   <div class="card-content">
     <span class="card-title">{{ university.name }}</span>
@@ -11,12 +11,28 @@
     <p>Phone Number: {{ university.phone }}</p>
     {% load static %}
     <div class="img-container">
-    <img
-      class="img"
-      src="{% static university.image|cut:'main_app/static' %}"
-      alt="uni img"
-    />
-  </div>
+      <img
+        class="img"
+        src="{% static university.image|cut:'main_app/static' %}"
+        alt="uni img"
+      />
+    </div>
   </div>
 </div>
+
+<div class="program-content">
+  <h1>Programs</h1>
+  {% for program in programs %}
+  <a href="{% url 'program_detail' university.id program.id %}">
+  <div class="card">
+    <div class="card-content">
+      <h2 class="program-name">{{program.name}}</h2>
+      <p>Level: {{program.level}}</p>
+      <p>Decsription: <br> {{program.description}}</p>
+    </div>
+  </div>
+  </a>
+  {% endfor %}
+</div>
+
 {% endblock %}

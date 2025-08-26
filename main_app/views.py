@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from .models import University
+from .models import University, Program
 # Create your views here.
 
 
@@ -21,7 +21,24 @@ def universities_index(request):
 
 def universities_detail(request, university_id):
     university = University.objects.get(id=university_id)
-    return render(request, 'universities/detail.html' , {'university': university})
+
+    # need it to show programs in uni
+    programs = Program.objects.filter(university=university)
+
+    return render(request, 'universities/detail.html' , {'university': university, 'programs':programs})
+
+
+# Program
+# if need the programs shown in another page not in uni
+# def programs_index(request, university_id ):
+#     university = University.objects.get(id=university_id)
+
+#     programs = Program.objects.filter(university=university)
+#     return render(request, 'universities/index.html', {'university': university, 'programs': programs })
+
+def programs_detail(request,university_id, program_id):
+    program = Program.objects.get(id=program_id , university_id=university_id)
+    return render(request, 'programs/detail.html' , {'program': program})
 
 def signup(request):
     error_message = ""
