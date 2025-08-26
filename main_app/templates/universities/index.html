@@ -1,0 +1,18 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Universities</h1>
+{% for university in universities %}
+<div class="card">
+  <a href="{% url 'detail' university.id %}">
+  {% load static %}
+  <div class="img-container">
+    <img
+      class="img"
+      src="{% static university.image|cut:'main_app/static'%}"
+      alt="uni img"
+    />
+  </div>
+  <span class="card-title">{{ university.name }}</span>
+  </a>
+</div>
+{% endfor %} {% endblock %}

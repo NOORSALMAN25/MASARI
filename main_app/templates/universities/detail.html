@@ -1,2 +1,22 @@
 {% extends 'base.html' %} {% block content %}
 
+<h1>{{  university.name  }}</h1>
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ university.name }}</span>
+    <p>{{ university.description }}</p>
+    <p>Location: {{ university.location }}</p>
+    <p>University Website: {{ university.website_link }}</p>
+    <p>Email: {{ university.email }}</p>
+    <p>Phone Number: {{ university.phone }}</p>
+    {% load static %}
+    <div class="img-container">
+    <img
+      class="img"
+      src="{% static university.image|cut:'main_app/static' %}"
+      alt="uni img"
+    />
+  </div>
+  </div>
+</div>
+{% endblock %}

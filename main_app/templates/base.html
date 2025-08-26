@@ -29,7 +29,7 @@
             
             {% if user.is_authenticated%}
             <li><a href="{% url 'about' %}">About</a></li>
-            <li><a href="{% url 'universities' %}"></a></li>
+            <li><a href="{% url 'index' %}">Universities</a></li>
             <li>
               <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}

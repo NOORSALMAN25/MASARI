@@ -8,5 +8,5 @@ class University(models.Model):
     website_link = models.CharField(max_length=300)
     description = models.TextField(max_length=300)
     email = models.TextField(max_length=50)
-    phone = models.IntegerField(max_length=15)
+    phone = models.IntegerField()
     image = models.ImageField(upload_to='main_app/static/uploads/', default='')
