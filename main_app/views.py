@@ -9,7 +9,8 @@ from django.contrib.auth import login
 
 class QuestionCreate(CreateView):
     model = Question
-    fields = ['question_txt' , 'date_posted']
+    fields = ['question_txt']
+    
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -21,9 +22,12 @@ class QuestionUpdate(UpdateView):
 
 class QuestionDelete(DeleteView):
     model = Question
-    success_url = '/'     
+    success_url = '/'  
 
 
+class AnswerDelete(DeleteView):
+    model = Answer
+    success_url='/'
 
 
 
