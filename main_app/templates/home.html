@@ -1,7 +1,19 @@
-{% extends 'base.html' %}
-
-{% block content %}
-
+{% extends 'base.html' %} {% block content %} {% if user.is_authenticated%}
 <h1>Welcome to Masari App</h1>
 
-{% endblock %}
+{% else %}
+<div>
+  <div>
+    <form method="post" action="{% url 'signup' %}">
+      {% csrf_token %} {{ form.as_p }}
+      <input type="submit" class="btn" value="Sign Up" />
+    </form>
+  </div>
+  <div>
+    <form action="{% url 'login' %}" method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <input type="submit" class="btn" value="Sign In" />
+    </form>
+  </div>
+</div>
+{% endif %} {% endblock %}
