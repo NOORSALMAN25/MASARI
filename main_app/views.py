@@ -2,6 +2,7 @@ from django.shortcuts import render , redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from .models import University
 # Create your views here.
 
 def home(request):
@@ -9,6 +10,10 @@ def home(request):
 
 def about(request):
     return render(request , 'about.html')
+
+def universities_index(request):
+    universities = University.objects.all(user=request.user)
+    return render(request, 'universities/index.html', { 'universities': universities })
 
 def signup(request):
     error_message = ""
