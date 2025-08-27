@@ -40,7 +40,7 @@
               <ul class="dropdown-menu">
                 <li style="color: black">Welcome, {{user.username}}</li>
                 <!-- change to profile link -->
-                <li><a href="#">Edit Profile</a></li>
+                <li><a href="{% url 'edit_user' %}">Edit Profile</a></li>
                 <li>
                   <form action="{% url 'logout' %}" method="post">
                     {% csrf_token %}

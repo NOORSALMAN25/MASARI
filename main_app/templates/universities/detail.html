@@ -3,7 +3,6 @@
 <h1>{{ university.name }}</h1>
 <div class="card">
   <div class="card-content">
-    <span class="card-title">{{ university.name }}</span>
     <p>{{ university.description }}</p>
     <p>Location: {{ university.location }}</p>
     <p>University Website: {{ university.website_link }}</p>
@@ -18,6 +17,15 @@
       />
     </div>
   </div>
+</div>
+<h2>Filter by Level</h2>
+<div class="filters">
+  <a href="?">All</a>
+  {% for lvl in levels %}
+    <a href="?level={{ lvl }}">
+      {{ lvl }}
+    </a>
+  {% endfor %}
 </div>
 
 <div class="program-content">

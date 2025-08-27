@@ -26,10 +26,18 @@ def universities_index(request):
 def universities_detail(request, university_id):
     university = University.objects.get(id=university_id)
 
+    level_filter = request.GET.get('level')
+
     # need it to show programs in uni
     programs = Program.objects.filter(university=university)
 
-    return render(request, 'universities/detail.html' , {'university': university, 'programs':programs})
+    if level_filter :
+        programs = programs.filter(level=level_filter)
+
+    levels = Program.objects.filter(university=university).values_list('level', flat=True).distinct()
+
+    return render(request, 'universities/detail.html' , {'university': university, 'programs':programs,    'levels': levels,
+        'selected_level': level_filter})
 
 
 # Program
@@ -117,10 +125,6 @@ def favorite_program(request,university_id, program_id):
         else:
             program.users_favorited.add(request.user)
 
-        programs = Program.objects.filter(university_id=university_id)
-        university = program.university
-
-
         return redirect('detail', university_id=university_id)
 
     
@@ -128,6 +132,19 @@ def favorites_list(request):
     favorite_programs = Program.objects.filter(users_favorited=request.user).order_by('university__name')
     return render(request, 'myList.html', {'favorite_programs': favorite_programs})
 
+def edit_user(request):
+    user = request.user
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        user.username = username
+        user.pasword = password
+        user.save()
+
+        return redirect('/')  
+    return render(request, 'edit_user.html', {'user': user})
 
 def signup(request):
     error_message = ""

@@ -13,8 +13,8 @@ class University(models.Model):
     location = models.CharField(max_length=100)
     website_link = models.CharField(max_length=300)
     description = models.TextField(max_length=300)
-    email = models.TextField(max_length=50)
-    phone = models.IntegerField()
+    email = models.CharField(max_length=50)
+    phone = models.CharField()
     image = models.ImageField(upload_to='main_app/static/uploads/', default='')
 
     def __str__(self):
