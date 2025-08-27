@@ -13,7 +13,13 @@ path('universities/<int:university_id>/', views.universities_detail, name='detai
 
 path('universities/<int:university_id>/programs/<int:program_id>/', views.programs_detail, name='program_detail'),
 
+#Q&A
+path('question/<int:pk>/delete/', views.question_delete, name='question_delete'),
+path('answer/<int:pk>/delete/', views.answer_delete, name='answer_delete'),
+
+
 path('universities/<int:university_id>/programs/<int:program_id>/toggle_favorite/', views.favorite_program, name='toggle_favorite_program'),
+
 
 path('favorites/', views.favorites_list, name='favorites_list'),
 
