@@ -70,6 +70,19 @@ def favorites_list(request):
     favorite_programs = Program.objects.filter(users_favorited=request.user).order_by('university__name')
     return render(request, 'myList.html', {'favorite_programs': favorite_programs})
 
+def edit_user(request):
+    user = request.user
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        user.username = username
+        user.pasword = password
+        user.save()
+
+        return redirect('/')  
+    return render(request, 'edit_user.html', {'user': user})
 
 def signup(request):
     error_message = ""
