@@ -26,7 +26,7 @@ def universities_detail(request, university_id):
     # need it to show programs in uni
     programs = Program.objects.filter(university=university)
 
-    if level_filter:
+    if level_filter :
         programs = programs.filter(level=level_filter)
 
     levels = Program.objects.filter(university=university).values_list('level', flat=True).distinct()
