@@ -40,8 +40,12 @@ def about(request):
     return render(request , 'about.html')
 
 def universities_index(request):
-    universities = University.objects.all()
-    return render(request, 'universities/index.html', { 'universities': universities })
+    search = request.GET.get('s')
+    if search:
+        universities = University.objects.filter(name__icontains=search)
+    else:
+        universities = University.objects.all()
+    return render(request, 'universities/index.html', { 'universities': universities , 'search': search, })
 
 def universities_detail(request, university_id):
     university = University.objects.get(id=university_id)
