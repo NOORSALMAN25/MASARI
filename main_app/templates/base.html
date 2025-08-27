@@ -31,7 +31,7 @@
           <ul class="right">
             {% if user.is_authenticated%}
             <li><a href="{% url 'index' %}">Universities</a></li>
-            <li><a href="#">My List</a></li>
+            <li><a href="{% url 'favorites_list' %}">My List</a></li>
             <li><a href="{% url 'about' %}">About</a></li>
 
             <!-- profile icon -->
@@ -49,8 +49,9 @@
                 </li>
               </ul>
 
+              {% else %}
+            </li>
 
-            {% else %}
             <li><a href="{% url 'about' %}">About</a></li>
             {% endif %}
           </ul>

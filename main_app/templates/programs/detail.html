@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% block content %}
+<div class="card">
+  <div class="card-content">
+    <h1>{{ program.name }}</h1>
+    <h2>{{ program.level }}</h2>
+
+    <p>Language: {{ program.language }}</p>
+    <p>Duration: {{ program.duration }}</p>
+    <p>Description: {{ program.description }}</p>
+    <p>Resources: <a href="{{ program.resources_link }}">website</a></p>
+    <p>Requirements: {{ program.requirements }}</p>
+  </div>
+</div>
+{% endblock %}
