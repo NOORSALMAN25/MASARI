@@ -64,15 +64,7 @@ def favorite_program(request,university_id, program_id):
     
 def favorites_list(request):
     favorite_programs = Program.objects.filter(users_favorited=request.user).order_by('university__name')
-
-    university_filter = request.GET.get('university', 'all')
-    if university_filter != 'all':
-        favorite_programs = favorite_programs.filter(university__name=university_filter)
-
-        universities = favorite_programs.values_list('university__name', flat=True).distinct().order_by('university__name')
-
-    return render(request, 'myList.html', {'favorite_programs': favorite_programs, 'universities': universities,
-        'selected_university': university_filter})
+    return render(request, 'myList.html', {'favorite_programs': favorite_programs})
 
 
 def signup(request):
