@@ -21,10 +21,18 @@ def universities_index(request):
 def universities_detail(request, university_id):
     university = University.objects.get(id=university_id)
 
+    level_filter = request.GET.get('level')
+
     # need it to show programs in uni
     programs = Program.objects.filter(university=university)
 
-    return render(request, 'universities/detail.html' , {'university': university, 'programs':programs})
+    if level_filter:
+        programs = programs.filter(level=level_filter)
+
+    levels = Program.objects.filter(university=university).values_list('level', flat=True).distinct()
+
+    return render(request, 'universities/detail.html' , {'university': university, 'programs':programs,    'levels': levels,
+        'selected_level': level_filter})
 
 
 # Program
@@ -50,10 +58,6 @@ def favorite_program(request,university_id, program_id):
             program.users_favorited.remove(request.user)
         else:
             program.users_favorited.add(request.user)
-
-        programs = Program.objects.filter(university_id=university_id)
-        university = program.university
-
 
         return redirect('detail', university_id=university_id)
 
