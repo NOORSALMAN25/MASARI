@@ -1,13 +1,14 @@
 from django.shortcuts import render , redirect
 from django.http import HttpResponse
+from django.views.generic.edit import CreateView , UpdateView , DeleteView
 from django.contrib.auth.forms import UserCreationForm
+from . models import Question , Answer , University, Program
+from .forms import QuestionForm, AnswerForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from .models import University, Program
-# Create your views here.
-
 
 # Create your views here.
+
 def home(request):
     return render(request , 'home.html')
 
@@ -49,7 +50,68 @@ def universities_detail(request, university_id):
 
 def programs_detail(request,university_id, program_id):
     program = Program.objects.get(id=program_id , university_id=university_id)
-    return render(request, 'programs/detail.html' , {'program': program})
+    questions = program.questions.all().prefetch_related("answers")
+
+    q_form = QuestionForm()
+    a_form = AnswerForm()
+
+    if request.method == 'POST':
+     
+     if 'add_question' in request.POST:
+        q_form = QuestionForm(request.POST)
+        if q_form.is_valid():
+            question = q_form.save(commit=False)
+            question.user = request.user
+            question.program = program
+            question.save()
+        return redirect('program_detail' ,university_id=university_id, program_id=program_id )
+        
+
+     elif 'edit_question' in request.POST:
+            question_id = request.POST.get('question_id')
+            question =Question.objects.get(id=question_id , user=request.user) 
+            form = QuestionForm(request.POST , instance=question)
+            if form.is_valid():
+                form.save()
+            return redirect('program_detail' , university_id=university_id, program_id=program_id) 
+
+     elif 'add_answer' in request.POST:
+            
+            question_id = request.POST.get('question_id')
+            question = Question.objects.get(id=question_id)
+            a_form = AnswerForm(request.POST)
+            if a_form.is_valid():
+                answer = a_form.save(commit=False)
+                answer.user = request.user
+                answer.question = question
+                answer.save()
+                return redirect('program_detail' , university_id=university_id, program_id=program_id)  
+            
+            
+    return render(request, 'programs/detail.html' ,  {
+        "program": program,
+        "questions": questions,
+        "q_form": q_form,
+        "a_form": a_form,
+    })
+
+
+def question_delete(request, pk):
+    question = Question.objects.get(id=pk, user=request.user)  # only owner
+    program = question.program
+    university_id = program.university.id
+    program_id = program.id
+    question.delete()
+    return redirect("program_detail", university_id=university_id, program_id=program_id)
+
+
+def answer_delete(request, pk):
+    answer = Answer.objects.get(id=pk, user=request.user)  # only owner
+    program = answer.question.program
+    university_id = program.university.id
+    program_id = program.id
+    answer.delete()
+    return redirect("program_detail", university_id=university_id, program_id=program_id)
 
 # favorite
 def favorite_program(request,university_id, program_id):

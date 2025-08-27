@@ -1,14 +1,13 @@
 from django import forms
-from django.contrib.auth.models import User
-from .models import Profile
+from .models import Question, Answer
 
+class QuestionForm(forms.ModelForm):
+    class Meta:
+        model = Question
+        fields = ['question_txt']
 
-class UpdateProfileForm(forms.ModelForm):
-    username = forms.CharField(max_length=100,
-        required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    password = forms.CharField(max_length=100,
-        required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = ['answer_txt']
 
-class Meta:
-    model = User
-    fields = ['username', 'password']
