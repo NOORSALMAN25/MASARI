@@ -19,6 +19,15 @@
     </div>
   </div>
 </div>
+<h2>Filter by Level</h2>
+<div class="filters">
+  <a href="?">All</a>
+  {% for lvl in levels %}
+    <a href="?level={{ lvl }}">
+      {{ lvl }}
+    </a>
+  {% endfor %}
+</div>
 
 <div class="program-content">
   <h1>Programs</h1>
