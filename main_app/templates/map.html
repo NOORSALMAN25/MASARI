@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- templates/map.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bahrain Universities Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+
+  <style>
+    html, body { height: 100%; margin: 0; }
+    #map { height: 80vh; width: 100%; }
+    .leaflet-popup-content img {
+      width: 100%;
+      max-height: 140px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .locate-btn {
+      position: absolute; z-index: 1000;
+      top: 12px; left: 12px;
+      background: white; padding: 8px 12px; border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      cursor: pointer; font-family: system-ui, sans-serif; font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+<div class="locate-btn" id="locateBtn">📍 My location</div>
+
+<!-- Leaflet JS -->
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin=""
+></script>
+
+<script>
+  // Bahrain default center (near Manama)
+  const BAHRAIN_CENTER = [26.0667, 50.5577];
+  const DEFAULT_ZOOM = 11;
+
+  const map = L.map('map', { zoomControl: true }).setView(BAHRAIN_CENTER, DEFAULT_ZOOM);
+
+  // Optional: keep users roughly within Bahrain bounds
+  const bahrainBounds = L.latLngBounds([25.55, 50.30], [26.40, 50.90]);
+  map.setMaxBounds(bahrainBounds.pad(0.2)); // soft boundary
+  map.on('drag', function() {
+    map.panInsideBounds(bahrainBounds.pad(0.4), { animate: false });
+  });
+
+  // Tiles (OpenStreetMap)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  // Try auto-locate once on load (requires HTTPS or localhost)
+  map.locate({ setView: true, maxZoom: 14, watch: false });
+  map.on('locationerror', () => {
+    // If blocked/denied, we stay on Bahrain center—no problem.
+    map.setView(BAHRAIN_CENTER, DEFAULT_ZOOM);
+  });
+
+  // Manual locate button
+  document.getElementById('locateBtn').addEventListener('click', () => {
+    map.locate({ setView: true, maxZoom: 14, watch: false });
+  });
+
+  // Utility to escape text to avoid XSS in popup
+  function escapeHtml(text) {
+    const map = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'};
+    return String(text || '').replace(/[&<>"']/g, m => map[m]);
+  }
+
+  // Load universities from Django
+  fetch("{% url 'universities_geojson' %}")
+    .then(res => res.json())
+    .then(geojson => {
+      L.geoJSON(geojson, {
+        pointToLayer: function(feature, latlng) {
+          return L.marker(latlng, { title: feature.properties.name });
+        },
+        onEachFeature: function(feature, layer) {
+          const p = feature.properties || {};
+          const img = p.image_url ? `<img src="${p.image_url}" alt="${escapeHtml(p.name)}">` : '';
+          const website = p.website ? `<p><a href="${p.website}" target="_blank" rel="noopener noreferrer">Visit website</a></p>` : '';
+          const email = p.email ? `<p>Email: <a href="mailto:${p.email}">${escapeHtml(p.email)}</a></p>` : '';
+          const phone = p.phone ? `<p>Phone: <a href="tel:${p.phone}">${escapeHtml(p.phone)}</a></p>` : '';
+
+          const html = `
+            <div style="width:260px">
+              ${img}
+              <h4 style="margin:0 0 6px 0;">${escapeHtml(p.name)}</h4>
+              <p style="margin:0 0 6px 0;">${escapeHtml(p.description || '')}</p>
+              ${website}
+              ${email}
+              ${phone}
+            </div>
+          `;
+          layer.bindPopup(html);
+        }
+      }).addTo(map);
+    })
+    .catch(err => {
+      console.error('Failed to load universities:', err);
+    });
+</script>
+</body>
+</html>
+
+
+{% endblock %} 
