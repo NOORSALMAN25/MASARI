@@ -33,6 +33,7 @@ def home(request):
 def about(request):
     return render(request , 'about.html')
 
+@login_required
 def universities_index(request):
     search = request.GET.get('s')
     if search:
@@ -41,6 +42,7 @@ def universities_index(request):
         universities = University.objects.all()
     return render(request, 'universities/index.html', { 'universities': universities , 'search': search, })
 
+@login_required
 def universities_detail(request, university_id):
     university = University.objects.get(id=university_id)
 
@@ -65,7 +67,7 @@ def universities_detail(request, university_id):
 
 #     programs = Program.objects.filter(university=university)
 #     return render(request, 'universities/index.html', {'university': university, 'programs': programs })
-
+@login_required
 def programs_detail(request,university_id, program_id):
     program = Program.objects.get(id=program_id , university_id=university_id)
     questions = program.questions.all().prefetch_related("answers")
@@ -113,7 +115,7 @@ def programs_detail(request,university_id, program_id):
         "a_form": a_form,
     })
 
-
+@login_required
 def question_delete(request, pk):
     question = Question.objects.get(id=pk, user=request.user)  # only owner
     program = question.program
@@ -122,7 +124,7 @@ def question_delete(request, pk):
     question.delete()
     return redirect("program_detail", university_id=university_id, program_id=program_id)
 
-
+@login_required
 def answer_delete(request, pk):
     answer = Answer.objects.get(id=pk, user=request.user)  # only owner
     program = answer.question.program
@@ -132,6 +134,7 @@ def answer_delete(request, pk):
     return redirect("program_detail", university_id=university_id, program_id=program_id)
 
 # favorite
+@login_required
 def favorite_program(request,university_id, program_id):
     program_check = Program.objects.filter(id=program_id)
 
@@ -145,11 +148,13 @@ def favorite_program(request,university_id, program_id):
 
         return redirect('detail', university_id=university_id)
 
-    
+
+@login_required    
 def favorites_list(request):
     favorite_programs = Program.objects.filter(users_favorited=request.user).order_by('university__name')
     return render(request, 'myList.html', {'favorite_programs': favorite_programs})
 
+@login_required
 def edit_user(request):
     user = request.user
 
@@ -180,9 +185,11 @@ def signup(request):
     return render(request, 'registration/signup.html', context)
 
 
+@login_required
 def map_view(request):
     return render(request , 'map.html')
 
+@login_required
 def universities_geojson(request):
     features = []
 
@@ -209,6 +216,7 @@ def universities_geojson(request):
 
 
 # live chat 
+@login_required
 def live_chat(request):
     return render(request , 'live_chat.html' , {
         'username':request.user.username
@@ -216,6 +224,7 @@ def live_chat(request):
 
 #CHAT AI FUNCTIONS
 # @api_view(["POST"])
+@login_required
 @csrf_exempt
 def chatbot_response(request):
     if request.method != "POST":
