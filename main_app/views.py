@@ -6,12 +6,17 @@ from . models import Question , Answer , University, Program
 from .forms import QuestionForm, AnswerForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+# from rest_framework.decorators import api_view
 from django.conf import settings
 import requests
+import json
+from openai import OpenAI
+
 
 # Create your views here.
+
 
 def home(request):
     return render(request , 'home.html')
@@ -194,5 +199,35 @@ def universities_geojson(request):
     return   JsonResponse({"type": "FeatureCollection", "features": features})
 
 #CHAT AI FUNCTIONS
+# @api_view(["POST"])
+@csrf_exempt
+def chatbot_response(request):
+    if request.method != "POST":
+        return render(request , 'chat.html')
+    
+    data = json.loads(request.body)
+    user_input = data["message"]
+
+    print(user_input)
+    
+    if not user_input:
+        return JsonResponse({"error": "Message is required"}, status=400)
+    
+    headers = {"Authorization": f"Bearer {DEEPSEEK_API_KEY}"}
+    data = {"prompt": user_input, "max_tokens": 150}
+    
+    # response = requests.post(DEEPSEEK_API_URL, json=data, headers=headers)
+    response = client.chat.completions.create(
+    model="deepseek-chat",
+    messages=[
+        {"role": "system", "content": "You are a university guidance chatbot that helps students pick their majors by asking questions"},
+        {"role": "user", "content": user_input},
+    ],
+    stream=False
+)
+    print(response.choices[0].message.content)
+    reply = response.choices[0].message.content
+    # print(response)
+    return JsonResponse({"response": reply})
 
 
