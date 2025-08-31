@@ -45,39 +45,39 @@
 ></script>
 
 <script>
-  const BAHRAIN_CENTER = [26.0667, 50.5577];
-  const DEFAULT_ZOOM = 11;
+  const BAHRAIN_CENTER = [26.0667, 50.5577]
+  const DEFAULT_ZOOM = 11
 
-  const map = L.map('map', { zoomControl: true }).setView(BAHRAIN_CENTER, DEFAULT_ZOOM);
+  const map = L.map('map', { zoomControl: true }).setView(BAHRAIN_CENTER, DEFAULT_ZOOM)
 
   // Bahrain bounds
-  const bahrainBounds = L.latLngBounds([25.55, 50.30], [26.40, 50.90]);
+  const bahrainBounds = L.latLngBounds([25.55, 50.30], [26.40, 50.90])
   map.setMaxBounds(bahrainBounds.pad(0.2));
   map.on('drag', function() {
-    map.panInsideBounds(bahrainBounds.pad(0.4), { animate: false });
-  });
+    map.panInsideBounds(bahrainBounds.pad(0.4), { animate: false })
+  })
 
   // Tiles
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
+  }).addTo(map)
 
   // Auto locate user
-  map.locate({ setView: true, maxZoom: 14, watch: false });
+  map.locate({ setView: true, maxZoom: 14, watch: false })
   map.on('locationerror', () => {
-    map.setView(BAHRAIN_CENTER, DEFAULT_ZOOM);
-  });
+    map.setView(BAHRAIN_CENTER, DEFAULT_ZOOM)
+  })
 
   // Locate Me button
   document.getElementById('locateBtn').addEventListener('click', () => {
-    map.locate({ setView: true, maxZoom: 14, watch: false });
-  });
+    map.locate({ setView: true, maxZoom: 14, watch: false })
+  })
 
   // Escape HTML
   function escapeHtml(text) {
-    const map = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'};
-    return String(text || '').replace(/[&<>"']/g, m => map[m]);
+    const map = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}
+    return String(text || '').replace(/[&<>"']/g, m => map[m])
   }
 
   // Load universities
@@ -87,11 +87,11 @@
       L.geoJSON(geojson, {
         pointToLayer: (feature, latlng) => L.marker(latlng, { title: feature.properties.name }),
         onEachFeature: (feature, layer) => {
-          const p = feature.properties || {};
-          const img = p.image_url ? `<img src="${p.image_url}" alt="${escapeHtml(p.name)}">` : '';
-          const website = p.website ? `<p><a href="${p.website}" target="_blank" rel="noopener noreferrer">Visit website</a></p>` : '';
-          const email = p.email ? `<p>Email: <a href="mailto:${p.email}">${escapeHtml(p.email)}</a></p>` : '';
-          const phone = p.phone ? `<p>Phone: <a href="tel:${p.phone}">${escapeHtml(p.phone)}</a></p>` : '';
+          const p = feature.properties || {}
+          const img = p.image_url ? `<img src="${p.image_url}" alt="${escapeHtml(p.name)}">` : ''
+          const website = p.website ? `<p><a href="${p.website}" target="_blank" rel="noopener noreferrer">Visit website</a></p>` : ''
+          const email = p.email ? `<p>Email: <a href="mailto:${p.email}">${escapeHtml(p.email)}</a></p>` : ''
+          const phone = p.phone ? `<p>Phone: <a href="tel:${p.phone}">${escapeHtml(p.phone)}</a></p>` : ''
 
           const html = `
             <div style="width:260px">
@@ -102,11 +102,11 @@
               ${email}
               ${phone}
             </div>
-          `;
+          `
           layer.bindPopup(html);
         }
-      }).addTo(map);
+      }).addTo(map)
     })
-    .catch(err => console.error('Failed to load universities:', err));
+    .catch(err => console.error('Failed to load universities:', err))
 </script>
 {% endblock %}
