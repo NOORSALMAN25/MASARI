@@ -6,6 +6,7 @@ from . models import Question , Answer , University, Program
 from .forms import QuestionForm, AnswerForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -160,3 +161,31 @@ def signup(request):
     form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
+
+
+def map_view(request):
+    return render(request , 'map.html')
+
+def universities_geojson(request):
+    features = []
+
+    for uni in University.objects.all():
+        if uni.latitude is None or uni.longitude is None:
+            continue
+        features.append({
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [float(uni.longitude), float(uni.latitude)],
+            },
+            "properties": {
+                "id": uni.id,
+                "name": uni.name,
+                "website": uni.website_link,
+                "description": uni.description,
+                "email": uni.email,
+                "phone": uni.phone,
+                "image_url": uni.image.url if uni.image else "",
+            },
+        })
+    return   JsonResponse({"type": "FeatureCollection", "features": features})
