@@ -12,10 +12,6 @@ from django.conf import settings
 import requests
 
 # Create your views here.
-HEADERS = {
-    "Authorization": f"Bearer {settings.HUGGINGFACE_API_TOKEN}",
-    "Content-Type": "application/json"
-}
 
 def home(request):
     return render(request , 'home.html')
@@ -199,36 +195,3 @@ def universities_geojson(request):
 
 #CHAT AI FUNCTIONS
 
-
-
-@csrf_exempt
-def chat_view(request):
-    if request.method == 'POST':
-        user_message = request.POST.get('message', '')
-
-        payload = {
-            "inputs": user_message,
-            "parameters": {"max_new_tokens": 150}
-        }
-
-        print("settings.HUGGINGFACE_MODEL_URL", settings.HUGGINGFACE_MODEL_URL)
-        print("HEADERS", HEADERS)
-
-        response = requests.post(
-            'https://api-inference.huggingface.co/models/meta-llama/llama-2-7b-chat-hf',
-            headers=HEADERS,
-            json=payload
-        )
-
-        print("response", response)
-        print("response.status_code", response.status_code)
-
-        if response.status_code == 200:
-            data = response.json()
-            ai_message = data[0]['generated_text']
-        else:
-            ai_message = "Sorry, something went wrong."
-
-        return JsonResponse({'message': ai_message})
-
-    return render(request, 'chat.html')
