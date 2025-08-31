@@ -25,7 +25,7 @@ urlpatterns = [
     path('', include('main_app.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('map/' , views.map_view,name='map'),
-    path('api/universities/' , views.universities_geojson, name='universities_geojson')
+    path('api/universities/' , views.universities_geojson, name='universities_geojson'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

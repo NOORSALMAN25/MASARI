@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block content %}
+<h1>ChatGPT Demo</h1>
+<input type="text" id="userInput" placeholder="Type a message" />
+<button onclick="sendMessage()">Send</button>
+<div id="chatOutput"></div>
+
+<script>
+  async function sendMessage() {
+    let userMessage = document.getElementById('userInput').value
+    let response = await fetch('http://127.0.0.1:8000/AIchat/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: userMessage })
+    })
+    console.log(response)
+    let data = await response.json()
+    console.log(data)
+    document.getElementById('chatOutput').innerText = data.response
+  }
+</script>
+{% endblock %}

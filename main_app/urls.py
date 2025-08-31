@@ -26,5 +26,8 @@ path('favorites/', views.favorites_list, name='favorites_list'),
 
 
 #signup
-path('accounts/signup/', views.signup, name='signup')
+path('accounts/signup/', views.signup, name='signup'),
+
+#Ai chatbot
+path('AIchat/' , views.chatbot_response , name='AIchat')
 ]
