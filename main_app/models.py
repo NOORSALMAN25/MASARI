@@ -65,3 +65,13 @@ class Answer(models.Model):
     def __str__(self):
         return self.answer_txt
     
+
+
+
+class LiveChatMessage(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return f'{self.user.usernamer}: {self.content}'
+    
