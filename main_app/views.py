@@ -13,10 +13,17 @@ from django.conf import settings
 import requests
 import json
 from openai import OpenAI
-
+import os
 
 # Create your views here.
 
+
+
+#openai api key 
+DEEPSEEK_API_URL=os.getenv('DEEPSEEK_API_URL')
+DEEPSEEK_API_KEY=os.getenv('DEEPSEEK_API_KEY')
+
+client = OpenAI(api_key=DEEPSEEK_API_KEY, base_url="https://api.deepseek.com")
 
 def home(request):
     return render(request , 'home.html')
