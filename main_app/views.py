@@ -8,6 +8,8 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
+from . import consumers
+
 # Create your views here.
 
 def home(request):
@@ -189,3 +191,9 @@ def universities_geojson(request):
             },
         })
     return   JsonResponse({"type": "FeatureCollection", "features": features})
+
+# live chat 
+def live_chat(request):
+    return render(request , 'live_chat.html' , {
+        'username':request.user.username
+    })
