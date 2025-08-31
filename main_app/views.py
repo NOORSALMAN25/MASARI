@@ -15,6 +15,8 @@ import json
 from openai import OpenAI
 import os
 
+from . import consumers
+
 # Create your views here.
 
 
@@ -205,6 +207,13 @@ def universities_geojson(request):
         })
     return   JsonResponse({"type": "FeatureCollection", "features": features})
 
+
+# live chat 
+def live_chat(request):
+    return render(request , 'live_chat.html' , {
+        'username':request.user.username
+    })
+
 #CHAT AI FUNCTIONS
 # @api_view(["POST"])
 @csrf_exempt
@@ -236,5 +245,6 @@ def chatbot_response(request):
     reply = response.choices[0].message.content
     # print(response)
     return JsonResponse({"response": reply})
+
 
 
