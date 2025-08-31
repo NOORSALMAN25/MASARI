@@ -195,3 +195,4 @@ def universities_geojson(request):
 
 #CHAT AI FUNCTIONS
 
+
