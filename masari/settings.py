@@ -15,6 +15,9 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+#openai api key 
+OPENAI_API_KEY = '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'
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -41,6 +44,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'chat',
     'maps',
     'main_app',
     'django.contrib.admin',
