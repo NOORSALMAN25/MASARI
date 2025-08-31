@@ -1,21 +1,41 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+{% block content %}
 <h1>ChatGPT Demo</h1>
-<input type="text" id="userInput" placeholder="Type a message" />
+
+<div id="chatBox" style="border:1px solid #ccc; padding:10px; width:400px; height:300px; overflow-y:auto;">
+  <div id="chatOutput"></div>
+</div>
+
+<input type="text" id="userInput" placeholder="Type a message" onkeypress="if(event.key === 'Enter'){ sendMessage(); }" />
 <button onclick="sendMessage()">Send</button>
-<div id="chatOutput"></div>
 
 <script>
   async function sendMessage() {
     let userMessage = document.getElementById('userInput').value
+    if (!userMessage.trim()) return
+
+    let chatOutput = document.getElementById('chatOutput')
+    let userDiv = document.createElement('div')
+    userDiv.style.color = "blue"
+    userDiv.innerText = "You: " + userMessage
+    chatOutput.appendChild(userDiv)
+
+    document.getElementById('userInput').value = ""
+
     let response = await fetch('http://127.0.0.1:8000/AIchat/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: userMessage })
     })
-    console.log(response)
+
     let data = await response.json()
-    console.log(data)
-    document.getElementById('chatOutput').innerText = data.response
+
+    let aiDiv = document.createElement('div')
+    aiDiv.style.color = "green"
+    aiDiv.innerText = "AI: " + data.response
+    chatOutput.appendChild(aiDiv)
+
+    chatOutput.scrollTop = chatOutput.scrollHeight
   }
 </script>
 {% endblock %}
