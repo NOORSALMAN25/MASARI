@@ -28,46 +28,7 @@ main {
   margin: 5px;
 }
 
-<<<<<<< HEAD
-footer.page-footer {
-  padding-top: 0;
-  text-align: right;
-}
-
-/* Container */
-.profile-dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Hide menu by default */
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 100%;
-  background: white;
-  list-style: none;
-  padding: 10px 0;
-  margin: 0;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  min-width: 150px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 100;
-}
-
-/* Each item */
-.dropdown-menu li {
-  padding: 8px 16px;
-}
-
-.dropdown-menu li a,
-.dropdown-menu li button {
-  color: #333;
-=======
 a {
->>>>>>> 4c9a10c5670a474b882787874e4680b657abffc5
   text-decoration: none;
   color: var(--text);
   font-weight: 500;
