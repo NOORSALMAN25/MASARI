@@ -1,59 +1,79 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+{% block content %}
 
-<h1>{{ university.name }}</h1>
-<div class="card">
-  <div class="card-content">
-    <p>{{ university.description }}</p>
-    <p>Location: {{ university.location }}</p>
-    <p>University Website: {{ university.website_link }}</p>
-    <p>Email: {{ university.email }}</p>
-    <p>Phone Number: {{ university.phone }}</p>
-    {% load static %}
-    <div class="img-container">
-      <img
-        class="img"
-        src="{{ university.image.url }}"
-        alt="uni img"
-      />
+<!-- University Header -->
+<div class="detail-header">
+  <!-- University image -->
+  <div class="detail-img-box">
+    <img class="detail-img" src="{{ university.image.url }}" alt="{{ university.name }} logo" />
+  </div>
+
+  <!-- University details -->
+  <div class="detail-info">
+    <h1 class="detail-title">{{ university.name }}</h1>
+    <p class="detail-location"><strong>Location:</strong> {{ university.location }}</p>
+    <p class="detail-description">{{ university.description }}</p>
+  </div>
+
+  <!-- Contact info -->
+  <div class="detail-contact">
+    <h3 class="detail-contact-title">Contact Info</h3>
+    <div class="detail-contact-item">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#7dad7d">
+        <path d="M798-120q-125 0-247-54.5T329-329Q229-429 174.5-551T120-798q0-18 12-30t30-12h162q14 0 25 9.5t13 22.5l26 140q2 16-1 27t-11 19l-97 98q20 37 47.5 71.5T387-386q31 31 65 57.5t72 48.5l94-94q9-9 23.5-13.5T670-390l138 28q14 4 23 14.5t9 23.5v162q0 18-12 30t-30 12Z"/>
+      </svg>
+      <span class="contact-info">{{ university.phone }}</span>
+    </div>
+    <div class="detail-contact-item">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#7dad7d">
+        <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200Z"/>
+      </svg>
+      <span class="contact-info">{{ university.email }}</span>
+    </div>
+    <div class="detail-contact-item">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#7dad7d"><path d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q83 0 155.5 31.5t127 86q54.5 54.5 86 127T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Zm0-82q26-36 45-75t31-83H404q12 44 31 83t45 75Zm-104-16q-18-33-31.5-68.5T322-320H204q29 50 72.5 87t99.5 55Zm208 0q56-18 99.5-55t72.5-87H638q-9 38-22.5 73.5T584-178ZM170-400h136q-3-20-4.5-39.5T300-480q0-21 1.5-40.5T306-560H170q-5 20-7.5 39.5T160-480q0 21 2.5 40.5T170-400Zm216 0h188q3-20 4.5-39.5T580-480q0-21-1.5-40.5T574-560H386q-3 20-4.5 39.5T380-480q0 21 1.5 40.5T386-400Zm268 0h136q5-20 7.5-39.5T800-480q0-21-2.5-40.5T790-560H654q3 20 4.5 39.5T660-480q0 21-1.5 40.5T654-400Zm-16-240h118q-29-50-72.5-87T584-782q18 33 31.5 68.5T638-640Zm-234 0h152q-12-44-31-83t-45-75q-26 36-45 75t-31 83Zm-200 0h118q9-38 22.5-73.5T376-782q-56 18-99.5 55T204-640Z"/>
+      </svg>
+      <a href="{{ university.website_link }}" target="_blank" class="contact-link">{{ university.website_link }}</a>
     </div>
   </div>
 </div>
-<h2>Filter by Level</h2>
-<div class="filters">
-  <a href="?">All</a>
-  {% for lvl in levels %}
-    <a href="?level={{ lvl }}">
-      {{ lvl }}
-    </a>
-  {% endfor %}
-</div>
 
-<div class="program-content">
-  <h1>Programs</h1>
-  {% for program in programs %}
-  <a href="{% url 'program_detail' university.id program.id %}">
-    <div class="card">
-      <div class="card-content">
-        <h2 class="program-name">{{program.name}}</h2>
-        <p>Level: {{program.level}}</p>
-        <p>
-          Decsription: <br />
-          {{program.description}}
-        </p>
-      </div>
-    </div>
-  </a>
-  <form
-    action="{% url 'toggle_favorite_program'  university.id program.id %}"
-    method="POST"
-  >
-    {% csrf_token %} {% if request.user in program.users_favorited.all %}
+<!-- Programs Section -->
+<div class="detail-programs">
+  <h1 class="detail-programs-title">Programs</h1>
 
-    <input type="submit" class="btn" value="❤️" />
-    {% else %}
-    <input type="submit" class="btn" value="🤍" />
-    {% endif %}
+  <!-- Filter (Dropdown) -->
+  <form method="get" class="detail-filter-form">
+    <label for="level" class="detail-filter-label">Level:</label>
+    <select name="level" id="level" class="detail-filter-select" onchange="this.form.submit()">
+      <option value="">All</option>
+      {% for lvl in levels %}
+        <option value="{{ lvl }}" {% if request.GET.level == lvl %}selected{% endif %}>{{ lvl }}</option>
+      {% endfor %}
+    </select>
   </form>
+
+  <!-- Program cards -->
+  {% for program in programs %}
+  <div class="detail-program-card">
+    <div class="detail-program-info">
+      <h2 class="detail-program-name">
+        {{ program.name }}
+        <span class="detail-program-level">{{ program.level }}</span>
+      </h2>
+      <p>{{ program.description }}</p>
+    </div>
+
+    <!-- Favorite button -->
+    <form action="{% url 'toggle_favorite_program' university.id program.id %}" method="POST">
+      {% csrf_token %}
+      {% if request.user in program.users_favorited.all %}
+        <input type="submit" class="detail-fav-btn" value="❤️" />
+      {% else %}
+        <input type="submit" class="detail-fav-btn" value="🤍" />
+      {% endif %}
+    </form>
+  </div>
   {% endfor %}
 </div>
 
