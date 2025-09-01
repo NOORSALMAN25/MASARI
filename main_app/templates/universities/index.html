@@ -1,18 +1,24 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+{% block content %}
 
 <section class="search-section">
   <h2 class="search-title">Search for your dream University</h2>
   <form method="get" action="" class="search-container">
-    <input
-      type="text"
-      name="s"
-      class="search-input"
-      placeholder="Search universities..."
-      value="{{ search|default:'' }}"
-    />
-    <button type="submit" class="search-button"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg></button>
+    <div class="search-wrapper">
+      <input
+        type="text"
+        name="s"
+        class="search-input"
+        placeholder="Search universities..."
+        value="{{ search|default:'' }}"
+      />
+      <button type="submit" class="search-button">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
+      </button>
+    </div>
   </form>
 </section>
+
 
 <section class="universities-section">
   <h1>Universities</h1>
@@ -21,23 +27,20 @@
     {% for university in universities %}
     <div class="card">
       <a href="{% url 'detail' university.id %}">
-        {% load static %}
         <div class="img-container">
           {% if university.image %}
           <img
             class="img"
             src="{{ university.image.url }}"
-            alt="{{university.name}} logo"
+            alt="{{ university.name }} logo"
           />
           {% else %}
-          <div class="img-placeholder"></div>
+          <div class="img-placeholder">🏫</div>
           {% endif %}
         </div>
         <div class="card-content">
           <span class="card-title">{{ university.name }}</span>
-          <div class="card-details">
-            <div ><p>{{ university.description }}</p></div>
-          </div>
+          <p class="card-description">{{ university.description|truncatechars:100 }}</p>
         </div>
       </a>
     </div>
