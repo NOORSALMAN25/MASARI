@@ -12,8 +12,6 @@ footer.page-footer {
   padding-top: 0;
   text-align: right;
 }
-<<<<<<< HEAD
-=======
 
 /* Container */
 .profile-dropdown {
@@ -64,4 +62,3 @@ footer.page-footer {
 .profile-dropdown:hover .dropdown-menu {
   display: block;
 }
->>>>>>> 7fe3c772b7471ba44611a91695d14a3ce6144642
