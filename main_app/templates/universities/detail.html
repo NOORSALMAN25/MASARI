@@ -2,21 +2,17 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<!-- University Header -->
 <div class="detail-header">
-  <!-- University image -->
   <div class="detail-img-box">
     <img class="detail-img" src="{{ university.image.url }}" alt="{{ university.name }} logo" />
   </div>
 
-  <!-- University details -->
   <div class="detail-info">
     <h1 class="detail-title">{{ university.name }}</h1>
     <p class="detail-location"><strong>Location:</strong> {{ university.location }}</p>
     <p class="detail-description">{{ university.description }}</p>
   </div>
 
-  <!-- Contact info -->
   <div class="detail-contact">
     <h3 class="detail-contact-title">Contact Info</h3>
     <div class="detail-contact-item">
@@ -39,11 +35,9 @@
   </div>
 </div>
 
-<!-- Programs Section -->
 <div class="detail-programs">
   <h1 class="detail-programs-title">Programs</h1>
 
-  <!-- Filter (Dropdown) -->
   <form method="get" class="detail-filter-form">
     <label for="level" class="detail-filter-label">Level:</label>
     <select name="level" id="level" class="detail-filter-select" onchange="this.form.submit()">
@@ -54,7 +48,6 @@
     </select>
   </form>
 
-  <!-- Program cards -->
   {% for program in programs %}
   <div class="detail-program-card">
     <div class="detail-program-info">
@@ -65,7 +58,6 @@
       <p>{{ program.description }}</p>
     </div>
 
-    <!-- Favorite button -->
     <form action="{% url 'toggle_favorite_program' university.id program.id %}" method="POST">
       {% csrf_token %}
       {% if request.user in program.users_favorited.all %}
