@@ -10,8 +10,8 @@
         <div class="img-container">
           <img
             class="img"
-            src="{% static university.grouper.image|cut:'main_app/static'%}"
-            alt="uni img"
+            src="{{ university.image.url }}"
+            alt="{{university.name}} logo"
             style="width: 100px;"
           />
         </div>
