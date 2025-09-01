@@ -1,13 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>ChatGPT Demo</h1>
-
-<div id="chatBox" style="border:1px solid #ccc; padding:10px; width:400px; height:300px; overflow-y:auto;">
-  <div id="chatOutput"></div>
+<div class="chatui-header">
+  <h1 class="chatui-title">Ask Me Anything 🤖</h1>
+  <p class="chatui-subtitle">
+    Our AI chatbot is like having a smart friend who knows everything about universities!
+  </p>
 </div>
 
-<input type="text" id="userInput" placeholder="Type a message" onkeypress="if(event.key === 'Enter'){ sendMessage(); }" />
-<button onclick="sendMessage()">Send</button>
+<div class="chatui-container">
+
+  <div id="chatBox">
+    <div id="chatOutput"></div>
+
+    <div class="chatui-typing-indicator" id="typingIndicator">
+      <div class="chatui-typing-dots">
+        <div class="chatui-typing-dot"></div>
+        <div class="chatui-typing-dot"></div>
+        <div class="chatui-typing-dot"></div>
+      </div>
+      <span class="chatui-typing-text">AI is thinking...</span>
+    </div>
+  </div>
+
+  <div class="chatui-input-container">
+    <input
+      type="text"
+      id="userInput"
+      placeholder="Ask me anything..."
+      onkeypress="if(event.key === 'Enter'){ sendMessage(); }"
+      class="chatui-input"
+    />
+    <button class="chatui-button" onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
 
 <script>
   async function sendMessage() {

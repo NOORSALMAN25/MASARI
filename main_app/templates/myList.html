@@ -1,41 +1,45 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="favorites-page">
-  <h1>My Favorite Programs</h1>
+<div class="favpro-page">
+  <h1 class="favpro-title">My Favorite Programs</h1>
+
   {% if favorite_programs %}
     {% regroup favorite_programs by university as universities %}
     {% for university in universities %}
-      <div>
-        {% load static %}
-        <div class="img-container">
+      <div class="favpro-university">
+        <div class="favpro-uni-header">
+          {% if university.grouper.image %}
           <img
-            class="img"
-            src="{% static university.grouper.image|cut:'main_app/static'%}"
-            alt="uni img"
-            style="width: 100px;"
+            class="favpro-uni-img"
+            src="{{ university.grouper.image.url }}"
+            alt="{{ university.grouper.name }} logo"
           />
+          {% else %}
+          <div class="favpro-uni-img-placeholder"></div>
+          {% endif %}
+          <h3 class="favpro-uni-name">{{ university.grouper.name }}</h3>
         </div>
-        <div>
-          <h3>{{ university.grouper.name }}</h3></div>
+
         {% for program in university.list %}
-          <div class="card">
-            <a href="{% url 'program_detail' university_id=program.university.id program_id=program.id %}">
-              <div class="card-content">
-                <h2>{{ program.name }}</h2>
-                <p>Level: {{ program.level }}</p>
-                <p>{{ program.description }}</p>
-                <form action="{% url 'toggle_favorite_program' university_id=program.university.id program_id=program.id %}" method="POST">
-                  {% csrf_token %}
-                  <button type="submit">Remove</button>
-                </form>
+          <div class="favpro-card">
+            <div class="favpro-card-content">
+              <div class="favpro-card-header">
+                <h2 class="favpro-program-name">{{ program.name }}</h2>
+                <span class="favpro-program-level">{{ program.level }}</span>
               </div>
-            </a>
+              <p class="favpro-program-desc">{{ program.description }}</p>
+            </div>
+
+            <form action="{% url 'toggle_favorite_program' university_id=program.university.id program_id=program.id %}" method="POST" class="favpro-remove-form">
+              {% csrf_token %}
+              <button type="submit" class="favpro-remove-btn">Remove</button>
+            </form>
           </div>
         {% endfor %}
       </div>
     {% endfor %}
   {% else %}
-    <p>You have no favorite programs yet.</p>
+    <p class="favpro-empty">You have no favorite programs yet.</p>
   {% endif %}
 </div>
 {% endblock %}
