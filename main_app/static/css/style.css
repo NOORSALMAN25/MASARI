@@ -1,64 +1,217 @@
+:root {
+  --bg-color: #f8fafc;
+  --navbar-footer: #e3f2fd;
+  --primary-btn: #a5d8a5;
+  --secondary-btn: #7dad7d;
+  --text: #374151;
+  --heading: #1e293b;
+  --hover-link: #a5d8a5;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   display: flex;
-  min-height: 100vh;
   flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text);
 }
 
 main {
   flex: 1 0 auto;
+  margin: 5px;
 }
 
-footer.page-footer {
-  padding-top: 0;
-  text-align: right;
-}
-
-/* Container */
-.profile-dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Hide menu by default */
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 100%;
-  background: white;
-  list-style: none;
-  padding: 10px 0;
-  margin: 0;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  min-width: 150px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 100;
-}
-
-/* Each item */
-.dropdown-menu li {
-  padding: 8px 16px;
-}
-
-.dropdown-menu li a,
-.dropdown-menu li button {
-  color: #333;
+a {
   text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+a:hover {
+  color: var(--hover-link);
+}
+
+header {
+  background-color: var(--navbar-footer);
+  color: var(--heading);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-container img {
+  height: 45px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.nav-links li {
+  position: relative;
+}
+
+.nav-links a {
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.nav-links a:hover {
+  background-color: var(--primary-btn);
+  color: white;
+}
+
+.nav-links button {
   background: none;
   border: none;
+  font-size: 20px;
   cursor: pointer;
-  width: 100%;
-  text-align: left;
-  font-size: 14px;
 }
 
-.dropdown-menu li a:hover,
-.dropdown-menu li button:hover {
-  background: #f5f5f5;
+.user-menu {
+  position: relative;
 }
 
-/* Show dropdown when hovering over profile */
-.profile-dropdown:hover .dropdown-menu {
+.user-button {
+  width: 40px;
+  height: 40px;
+  background-color: #b2c76f;
+  color: #273850;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease;
+}
+
+.user-button:hover {
+  background-color: white;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  color: #273850;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+  margin-top: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.user-menu:hover .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-header {
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dropdown-header p:first-child {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.dropdown-header p:last-child {
+  font-weight: 600;
+}
+
+.dropdown-links {
+  padding: 0.5rem 0;
+}
+
+.dropdown-links a {
   display: block;
+  padding: 0.75rem 1rem;
+  margin: 10px;
+  color: #273850;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+  text-align: center;
+}
+
+.dropdown-links a:hover {
+  background-color: #f3f4f6;
+  color:var(--heading);
+}
+.form-button{
+    text-align: center; 
+    display: flex;
+    justify-content: center;
+
+}
+
+.dropdown-links form button {
+  display: block;
+  padding: 0.75rem 1rem;
+  background-color: #fff; 
+  color: #273850; 
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  text-align: center; 
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.dropdown-links form button:hover {
+  background-color: #b2c76f; 
+  color: #fff;
+}
+
+/* Chatbot button */
+#chatbot-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--primary-btn);
+  color: var(--text);
+  padding: 12px 18px;
+  border-radius: 50px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+  transition: background 0.3s, transform 0.2s;
+}
+
+#chatbot-button:hover {
+  background-color: var(--secondary-btn);
+  transform: translateY(-2px);
+}
+
+/* Footer */
+footer {
+  background-color: var(--navbar-footer);
+  text-align: center;
+  padding: 15px 0;
+  font-size: 14px;
+  margin-top: 40px;
 }
