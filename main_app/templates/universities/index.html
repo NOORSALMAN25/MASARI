@@ -1,29 +1,53 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Universities</h1>
+<section class="search-section">
+  <h2 class="search-title">Search for your dream University</h2>
+  <form method="get" action="" class="search-container">
+    <input 
+      type="text" 
+      name="s" 
+      class="search-input"
+      placeholder="Search universities..." 
+      value="{{ search|default:'' }}"
+    >
+    <button type="submit" class="search-button">🔍</button>
+  </form>
+</section>
 
-<form method="get" action="">
-  <input type="text" name="s" placeholder="Search universities..." value="{{ search|default:'' }}">
-  <button type="submit">Search</button>
-</form>
-
-{% for university in universities %}
-  <div class="card">
-    <a href="{% url 'detail' university.id %}">
-      {% load static %}
-      <div class="img-container">
-        <img
-          class="img"
-          src="{{ university.image.url }}"
-          alt="uni img"
-        />
+<section class="universities-section">
+  <h1>Universities</h1>
+  
+  <div class="universities-grid">
+    {% for university in universities %}
+      <div class="card">
+        <a href="{% url 'detail' university.id %}">
+          {% load static %}
+          <div class="img-container">
+            {% if university.image %}
+              <img
+                class="img"
+                src="{{ university.image.url }}"
+                alt="uni img"
+              />
+            {% else %}
+              <div class="img-placeholder"></div>
+            {% endif %}
+          </div>
+          <div class="card-content">
+            <span class="card-title">{{ university.name }}</span>
+            <div class="card-details">
+              <div class="detail-line"></div>
+              <div class="detail-line"></div>
+              <div class="detail-line"></div>
+            </div>
+          </div>
+        </a>
       </div>
-      <span class="card-title">{{ university.name }}</span>
-    </a>
+    {% empty %}
+      <p class="no-results">No universities found.</p>
+    {% endfor %}
   </div>
-{% empty %}
-  <p>No universities found.</p>
-{% endfor %}
+</section>
 
 {% endblock %}
