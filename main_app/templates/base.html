@@ -5,6 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Masari</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/aboutstyle.css' %}" />
     <link rel="stylesheet" href="{% static 'css/aistyle.css' %}" />
@@ -14,9 +16,9 @@
     <link rel="stylesheet" href="{% static 'css/home.css' %}" />
     <link rel="stylesheet" href="{% static 'css/aboutstyle.css' %}" />
     <link rel="stylesheet" href="{% static 'css/universityindex.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/register.css' %}" />
     <link rel="stylesheet" href="{% static 'css/universitydetails.css' %}" />
     <link rel="stylesheet" href="{% static 'css/mylist.css' %}" />
-
 
   </head>
   <body>
@@ -33,7 +35,7 @@
           <li><a href="{% url 'live_chat' %}">M-Hub</a></li>
           <li><a href="{% url 'about' %}">About</a></li>
           <li>
-            <a href="{% url 'map' %}"
+            <a href="{% url 'map' %}" class="nav-icon"
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="24px"

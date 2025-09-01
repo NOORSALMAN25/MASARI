@@ -6,22 +6,25 @@
   --text: #374151;
   --heading: #1e293b;
   --hover-link: #a5d8a5;
+  --light-blue: #e8f4f8;
+  --accent-blue: #60a5fa;
+  --soft-white: #ffffff;
 }
-
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(
+    135deg,
+    var(--light-blue) 0%,
+    var(--navbar-footer) 50%,
+    var(--primary-btn) 100%
+  );
+}
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text);
-}
 
 main {
   flex: 1 0 auto;
@@ -74,7 +77,8 @@ header {
 
 .nav-links a {
   padding: 8px 12px;
-  border-radius: 8px;
+  font-weight: bold;
+  border-radius: 20px;
   transition: background 0.3s, color 0.3s;
 }
 
@@ -88,6 +92,28 @@ header {
   border: none;
   font-size: 20px;
   cursor: pointer;
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.nav-icon svg {
+  fill: #273850; 
+  transition: fill 0.3s;
+}
+
+.nav-icon:hover {
+  background-color: var(--primary-btn);
+}
+
+.nav-icon:hover svg {
+  fill: white; 
 }
 
 .user-menu {
@@ -147,48 +173,36 @@ header {
 }
 
 .dropdown-links {
-  padding: 0.5rem 0;
+  display: flex;
+  flex-direction: column; 
+  align-items: stretch;   
+  padding: 0.5rem;
+  gap: 8px;              
 }
 
-.dropdown-links a {
-  display: block;
-  padding: 0.75rem 1rem;
-  margin: 10px;
-  color: #273850;
-  text-decoration: none;
-  transition: background-color 0.2s ease;
+.dropdown-links a,
+.dropdown-links form button {
+  width: 100%;           
   text-align: center;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;   
+  transition: background-color 0.2s ease, color 0.2s ease;
+  
+}
+.dropdown-links form button {
+  background-color: #bad26a9e;
 }
 
 .dropdown-links a:hover {
   background-color: #f3f4f6;
-  color:var(--heading);
-}
-.form-button{
-    text-align: center; 
-    display: flex;
-    justify-content: center;
-
-}
-
-.dropdown-links form button {
-  display: block;
-  padding: 0.75rem 1rem;
-  background-color: #fff; 
-  color: #273850; 
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  text-align: center; 
-  transition: background-color 0.2s, color 0.2s;
+  color: var(--heading);
 }
 
 .dropdown-links form button:hover {
-  background-color: #b2c76f; 
+  background-color: #b2c76f;
   color: #fff;
 }
 
-/* Chatbot button */
 #chatbot-button {
   position: fixed;
   bottom: 20px;
@@ -207,7 +221,6 @@ header {
   transform: translateY(-2px);
 }
 
-/* Footer */
 footer {
   background-color: var(--navbar-footer);
   text-align: center;
