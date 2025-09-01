@@ -160,14 +160,30 @@ def edit_user(request):
 
     if request.method == 'POST':
         username = request.POST.get('username')
-        password = request.POST.get('password')
-        
-        user.username = username
-        user.pasword = password
+        old_password = request.POST.get('old_password')
+        new_password = request.POST.get('new_password')
+
+        if not user.check_password(old_password):
+            return render(request, 'edit_user.html', {
+                'user': user,
+                'error': ' Old password is incorrect'
+            })
+
+        if username:
+            user.username = username
+
+        if new_password:
+            user.set_password(new_password)
+
         user.save()
 
-        return redirect('/')  
+        from django.contrib.auth import update_session_auth_hash
+        update_session_auth_hash(request, user)
+
+        return redirect('/')
+    
     return render(request, 'edit_user.html', {'user': user})
+
 
 def signup(request):
     error_message = ""

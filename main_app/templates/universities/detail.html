@@ -49,6 +49,7 @@
   </form>
 
   {% for program in programs %}
+  <a href="{% url 'program_detail' university.id program.id %}">
   <div class="detail-program-card">
     <div class="detail-program-info">
       <h2 class="detail-program-name">
@@ -69,5 +70,6 @@
   </div>
   {% endfor %}
 </div>
+</a>
 
 {% endblock %}
