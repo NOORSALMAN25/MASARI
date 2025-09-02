@@ -1,23 +1,66 @@
 {% extends 'base.html' %} {% block content %}
+
 <div id="edit-profile-page">
   <h1 id="profile-title">Update Profile</h1>
-  
+
+  {% if error %}
+  <p style="color: red; text-align: center; margin-bottom: 15px">{{ error }}</p>
+  {% endif %}
+
   <form id="profile-form" method="POST">
     {% csrf_token %}
 
-    <div id="username-field" data-field="username">
-      <label for="username" id="username-label">Username</label>
-      <input type="text" name="username" id="username" value="{{user.username }}" placeholder="Enter your username" required>
+    <div class="field">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        name="username"
+        id="username"
+        value="{{ user.username }}"
+        required
+      />
     </div>
 
-    <div id="password-field" data-field="password">
-      <label for="password" id="password-label">New Password</label>
-      <input type="password" name="password" id="password" value="{{user.password }}"  placeholder="Enter new password" required>
+    <a href="#" id="toggle-password-link">Change Password</a>
+
+    <div id="password-section" style="display: none">
+      <div class="field">
+        <label for="current-password">Current Password</label>
+        <input
+          type="password"
+          name="old_password"
+          id="current-password"
+          placeholder="Enter current password"
+        />
+      </div>
+
+      <div class="field">
+        <label for="new-password">New Password</label>
+        <input
+          type="password"
+          name="new_password"
+          id="new-password"
+          placeholder="Enter new password"
+        />
+      </div>
     </div>
 
     <button type="submit" id="save-btn">Save Changes</button>
+    <a href="{% url 'home' %}" id="cancel-btn">Cancel</a>
   </form>
 </div>
 
+<script>
+  document.addEventListener('DOMContentLoaded',  ()=> {
+    const toggleLink = document.getElementById('toggle-password-link')
+    const passwordSection = document.getElementById('password-section')
+
+    toggleLink.addEventListener('click', function (e) {
+      e.preventDefault()
+      passwordSection.style.display =
+        passwordSection.style.display === 'none' ? 'block' : 'none'
+    })
+  })
+</script>
 
 {% endblock %}

@@ -9,8 +9,8 @@
 
   <div class="detail-info">
     <h1 class="detail-title">{{ university.name }}</h1>
-    <p class="detail-location"><strong>Location:</strong> {{ university.location }}</p>
-    <p class="detail-description">{{ university.description }}</p>
+    <p class="detail-location"><strong>Location:</strong> <br>📍{{ university.location }}</p>
+    <p class="detail-description"><strong>Description:</strong> <br>{{ university.description }}</p>
   </div>
 
   <div class="detail-contact">
@@ -36,9 +36,12 @@
 </div>
 
 <div class="detail-programs">
-  <h1 class="detail-programs-title">Programs</h1>
 
-  <form method="get" class="detail-filter-form">
+  <div class="detail-programs-header">
+    <h1 class="detail-programs-title">Programs</h1>
+
+    <form method="get" class="detail-filter-form">
+  <div class="filter-wrapper">
     <label for="level" class="detail-filter-label">Level:</label>
     <select name="level" id="level" class="detail-filter-select" onchange="this.form.submit()">
       <option value="">All</option>
@@ -46,28 +49,34 @@
         <option value="{{ lvl }}" {% if request.GET.level == lvl %}selected{% endif %}>{{ lvl }}</option>
       {% endfor %}
     </select>
-  </form>
+  </div>
+</form>
+  </div>
 
   {% for program in programs %}
-  <div class="detail-program-card">
-    <div class="detail-program-info">
-      <h2 class="detail-program-name">
-        {{ program.name }}
-        <span class="detail-program-level">{{ program.level }}</span>
-      </h2>
-      <p>{{ program.description }}</p>
-    </div>
+  <a href="{% url 'program_detail' university.id program.id %}">
+    <div class="detail-program-card">
+      <div class="detail-program-info">
+        <h2 class="detail-program-name">
+          {{ program.name }}
+          <span class="detail-program-level">{{ program.level }}</span>
+        </h2>
+        <p>{{ program.description }}</p>
+      </div>
 
-    <form action="{% url 'toggle_favorite_program' university.id program.id %}" method="POST">
-      {% csrf_token %}
-      {% if request.user in program.users_favorited.all %}
-        <input type="submit" class="detail-fav-btn" value="❤️" />
-      {% else %}
-        <input type="submit" class="detail-fav-btn" value="🤍" />
-      {% endif %}
-    </form>
-  </div>
+      <form action="{% url 'toggle_favorite_program' university.id program.id %}" method="POST">
+        {% csrf_token %}
+        {% if request.user in program.users_favorited.all %}
+          <input type="submit" class="detail-fav-btn" value="❤️" />
+        {% else %}
+          <input type="submit" class="detail-fav-btn" value="🤍" />
+        {% endif %}
+      </form>
+    </div>
+  </a>
   {% endfor %}
+
 </div>
+
 
 {% endblock %}

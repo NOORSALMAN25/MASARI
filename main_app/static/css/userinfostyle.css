@@ -1,150 +1,104 @@
 #edit-profile-page {
     width: 100%;
-    width: 450px;
-    background: white;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-    border: 2px solid var(--navbar-footer);
-    position: relative;
-    overflow: hidden;
+    max-width: 480px;
+    background: #fff;
+    border-radius: 30px; 
+    padding: 50px 40px;
+    margin: 60px auto; 
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); 
+    border: 1px solid var(--navbar-footer);
+    text-align: left; 
 }
-
-
 
 #profile-title {
     color: var(--heading);
-    font-size: 2rem;
+    font-size: 32px;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 8px;
-    position: relative;
+    margin-bottom: 25px;
 }
-
-
 
 #profile-form {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 22px;
+}
+.field{
+    margin: 20px 0;
 }
 
-#username-field {
-    position: relative;
-}
-
-#username-label {
+.field label {
     display: block;
     font-weight: 600;
     color: var(--heading);
     margin-bottom: 8px;
-    font-size: 0.9rem;
-    letter-spacing: 0.01em;
 }
 
-#username {
+.field input {
     width: 100%;
-    padding: 16px 18px;
-    border: 2px solid var(--navbar-footer);
-    border-radius: 12px;
+    padding: 14px 18px;
+    border: 1px solid #ccc; 
+    border-radius: 30px; 
     font-size: 15px;
-    font-family: inherit;
-    color: var(--text);
-    background-color: white;
     outline: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-#username:focus {
-    border-color: var(--primary-btn);
-    box-shadow: 0 0 0 3px rgba(165, 216, 165, 0.1), 0 4px 8px rgba(0, 0, 0, 0.08);
-    transform: translateY(-1px);
-}
-
-#username:hover {
-    border-color: var(--hover-link);
-}
-
-#username::placeholder {
     color: var(--text);
-    opacity: 0.5;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-
-
-#password-field {
-    position: relative;
+.field input:focus {
+    border-color: var(--primary-btn);
+    box-shadow: 0 0 0 3px rgba(165, 216, 165, 0.2);
 }
 
-#password-label {
-    display: block;
-    font-weight: 600;
-    color: var(--heading);
-    margin-bottom: 8px;
+#toggle-password-link {
+    color: var(--primary-btn);
     font-size: 0.9rem;
-    letter-spacing: 0.01em;
+    text-decoration: underline;
+    cursor: pointer;
 }
-
-#password {
-    width: 100%;
-    padding: 16px 18px;
-    border: 2px solid var(--navbar-footer);
-    border-radius: 12px;
-    font-size: 15px;
-    font-family: inherit;
-    color: var(--text);
-    background-color: white;
-    outline: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-#password:focus {
-    border-color: var(--primary-btn);
-    box-shadow: 0 0 0 3px rgba(165, 216, 165, 0.1), 0 4px 8px rgba(0, 0, 0, 0.08);
-    transform: translateY(-1px);
-}
-
-#password:hover {
-    border-color: var(--hover-link);
-}
-
-#password::placeholder {
-    color: var(--text);
-    opacity: 0.5;
-}
-
 
 #save-btn {
-    padding: 16px 28px;
+    padding: 14px;
     border: none;
-    border-radius: 12px;
-    background: linear-gradient(135deg, var(--primary-btn) 0%, var(--secondary-btn) 100%);
-    color: var(--heading);
+    border-radius: 30px;
+    background: var(--primary-btn);
+    color: white;
     font-size: 16px;
-    font-weight: 600;
-    font-family: inherit;
+    font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(165, 216, 165, 0.3);
-    margin-top: 8px;
-    position: relative;
-    overflow: hidden;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
 }
 
-#save-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
+#save-btn:hover {
+    background-color: var(--secondary-btn);
+}
+
+#save-btn,
+#cancel-btn {
+    display: block;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
+    max-width: 360px;
+    text-align: center;
+    margin: 10px auto; 
 }
 
-#save-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 12px rgba(125, 173, 125, 0.3);
+#cancel-btn {
+    display: inline-block;
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+    padding: 14px;
+    border-radius: 30px;
+    border: 1px solid var(--primary-btn);
+    color: var(--primary-btn);
+    font-weight: bold;
+    margin-top: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+#cancel-btn:hover {
+    background-color: var(--primary-btn);
+    color: white;
 }

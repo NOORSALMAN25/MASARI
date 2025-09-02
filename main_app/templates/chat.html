@@ -1,39 +1,38 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <div class="chatui-header">
   <h1 class="chatui-title">Ask Me Anything 🤖</h1>
   <p class="chatui-subtitle">
-    Our AI chatbot is like having a smart friend who knows everything about universities!
+    Our AI chatbot is like having a smart friend who knows everything about
+    universities!
   </p>
 </div>
+<div class="chatui-wrapper">
+  <div class="chatui-container">
+    <div id="chatBox">
+      <div id="chatOutput"></div>
 
-<div class="chatui-container">
-
-  <div id="chatBox">
-    <div id="chatOutput"></div>
-
-    <div class="chatui-typing-indicator" id="typingIndicator">
-      <div class="chatui-typing-dots">
-        <div class="chatui-typing-dot"></div>
-        <div class="chatui-typing-dot"></div>
-        <div class="chatui-typing-dot"></div>
+      <div class="chatui-typing-indicator" id="typingIndicator">
+        <div class="chatui-typing-dots">
+          <div class="chatui-typing-dot"></div>
+          <div class="chatui-typing-dot"></div>
+          <div class="chatui-typing-dot"></div>
+        </div>
+        <span class="chatui-typing-text">AI is thinking...</span>
       </div>
-      <span class="chatui-typing-text">AI is thinking...</span>
+    </div>
+
+    <div class="chatui-input-container">
+      <input
+        type="text"
+        id="userInput"
+        placeholder="Ask me anything..."
+        onkeypress="if(event.key === 'Enter'){ sendMessage(); }"
+        class="chatui-input"
+      />
+      <button class="chatui-button" onclick="sendMessage()">Send</button>
     </div>
   </div>
-
-  <div class="chatui-input-container">
-    <input
-      type="text"
-      id="userInput"
-      placeholder="Ask me anything..."
-      onkeypress="if(event.key === 'Enter'){ sendMessage(); }"
-      class="chatui-input"
-    />
-    <button class="chatui-button" onclick="sendMessage()">Send</button>
-  </div>
 </div>
-
 
 <script>
   async function sendMessage() {
@@ -42,11 +41,11 @@
 
     let chatOutput = document.getElementById('chatOutput')
     let userDiv = document.createElement('div')
-    userDiv.style.color = "blue"
-    userDiv.innerText = "You: " + userMessage
+    userDiv.style.color = 'blue'
+    userDiv.innerText = 'You: ' + userMessage
     chatOutput.appendChild(userDiv)
 
-    document.getElementById('userInput').value = ""
+    document.getElementById('userInput').value = ''
 
     let response = await fetch('http://127.0.0.1:8000/AIchat/', {
       method: 'POST',
@@ -57,8 +56,8 @@
     let data = await response.json()
 
     let aiDiv = document.createElement('div')
-    aiDiv.style.color = "green"
-    aiDiv.innerText = "AI: " + data.response
+    aiDiv.style.color = 'green'
+    aiDiv.innerText = 'AI: ' + data.response
     chatOutput.appendChild(aiDiv)
 
     chatOutput.scrollTop = chatOutput.scrollHeight
