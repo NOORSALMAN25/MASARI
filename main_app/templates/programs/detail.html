@@ -74,7 +74,7 @@
             <input type="text" name="question_txt" value="{{ question.question_txt }}" 
                   class="progdetail-edit-input" required>
             <div class="progdetail-edit-actions">
-              <button type="submit" name="edit_question" class="progdetail-save-btn">💾</button>
+              <button type="submit" name="edit_question" class="progdetail-save-btn">💾 Save</button>
               <button type="button" onclick="toggleEdit({{ question.id }})" class="progdetail-cancel-btn">🗑️</button>
             </div>
           </form>
@@ -101,8 +101,8 @@
             <input type="text" name="answer_txt" placeholder="..........................." 
             class="progdetail-answer-input" required>
             <input type="hidden" name="question_id" value="{{ question.id }}">
-            <button type="submit" name="add_answer" class="progdetail-reply-btn">↩️</button>
-            <button type="button" class="progdetail-answer-delete-btn">🗑️</button>
+            <button type="submit" name="add_answer" class="progdetail-reply-btn">↩️ Reply</button>
+            <button type="button" class="progdetail-answer-delete-btn">🗑️ </button>
           </form>
         </div>
       </div>
