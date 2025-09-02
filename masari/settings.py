@@ -101,13 +101,19 @@ if 'ON_RENDER' in os.environ:
     )
     }
 else:
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.postgresql',
+    #         'NAME': os.getenv('DATABASENAME'),
+    #         'USER':os.getenv('DATABASEUSER'),
+    #         'PASSWORD':os.getenv('DATABASEPASSWORD')
+    #     }
+    # }
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.getenv('DATABASENAME'),
-            'USER':os.getenv('DATABASEUSER'),
-            'PASSWORD':os.getenv('DATABASEPASSWORD')
-        }
+    'default': dj_database_url.config(
+        default='postgresql://masari_user:Hl3mOt9G8TDeebIR36x6e02IY0rZobqt@dpg-d2rddh7diees73e7reu0-a.oregon-postgres.render.com:5433/masari', 
+        conn_max_age=600
+    )
     }
 
 
