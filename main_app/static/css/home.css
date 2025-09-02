@@ -59,7 +59,7 @@
 .slideshow-container {
   flex: 1;
   max-width: 350px;
-  height: 350px; /* 🔹 ثبّت الارتفاع */
+  height: 350px; 
   position: relative;
   overflow: hidden;
   border-radius: 16px;

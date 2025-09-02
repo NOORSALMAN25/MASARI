@@ -168,7 +168,6 @@ form {
   font-weight: 600;
 }
 
-/* Animation */
 @keyframes fadeUp {
   0% {
     opacity: 0;
