@@ -28,7 +28,7 @@
 
 
 <script>
-  const username = '{{ username }}' // passed from Django
+  const username = '{{ username }}' 
   const chatLog = document.querySelector('#chat-log')
   const messageInput = document.querySelector('#chat-message-input')
 
@@ -39,7 +39,7 @@
   chatSocket.onmessage = function (e) {
     const data = JSON.parse(e.data)
     chatLog.innerHTML += `<div><b>${data.username}:</b> ${data.message}</div>`
-    chatLog.scrollTop = chatLog.scrollHeight // auto-scroll
+    chatLog.scrollTop = chatLog.scrollHeight 
   }
 
   messageInput.focus()

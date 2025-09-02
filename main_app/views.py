@@ -8,7 +8,6 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-# from rest_framework.decorators import api_view
 from django.conf import settings
 import requests
 import json
@@ -60,13 +59,7 @@ def universities_detail(request, university_id):
         'selected_level': level_filter})
 
 
-# Program
-# if need the programs shown in another page not in uni
-# def programs_index(request, university_id ):
-#     university = University.objects.get(id=university_id)
 
-#     programs = Program.objects.filter(university=university)
-#     return render(request, 'universities/index.html', {'university': university, 'programs': programs })
 @login_required
 def programs_detail(request,university_id, program_id):
     program = Program.objects.get(id=program_id , university_id=university_id)
@@ -239,7 +232,7 @@ def live_chat(request):
     })
 
 #CHAT AI FUNCTIONS
-# @api_view(["POST"])
+
 @login_required
 @csrf_exempt
 def chatbot_response(request):
@@ -249,7 +242,6 @@ def chatbot_response(request):
     data = json.loads(request.body)
     user_input = data["message"]
 
-    print(user_input)
     
     if not user_input:
         return JsonResponse({"error": "Message is required"}, status=400)
@@ -257,7 +249,6 @@ def chatbot_response(request):
     headers = {"Authorization": f"Bearer {DEEPSEEK_API_KEY}"}
     data = {"prompt": user_input, "max_tokens": 150}
     
-    # response = requests.post(DEEPSEEK_API_URL, json=data, headers=headers)
     response = client.chat.completions.create(
     model="deepseek-chat",
     messages=[
@@ -266,9 +257,7 @@ def chatbot_response(request):
     ],
     stream=False
 )
-    print(response.choices[0].message.content)
     reply = response.choices[0].message.content
-    # print(response)
     return JsonResponse({"response": reply})
 
 
