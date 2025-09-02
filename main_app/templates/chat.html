@@ -47,7 +47,7 @@
 
     document.getElementById('userInput').value = ''
 
-    let response = await fetch('http://127.0.0.1:8000/AIchat/', {
+    let response = await fetch('https://masari-r18y.onrender.com/AIchat/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: userMessage })
