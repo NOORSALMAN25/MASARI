@@ -1,19 +1,23 @@
 {% extends 'base.html' %} {% block content %}
-
-<div class="edit-profile-page">
-  <h1>Edit User</h1>
-  <form method="POST">
+<div id="edit-profile-page">
+  <h1 id="profile-title">Update Profile</h1>
+  
+  <form id="profile-form" method="POST">
     {% csrf_token %}
-    <div class="input-field">
-      <label for="username">Username</label>
-      <input type="text" name="username" id="username" value="{{ user.username }}" required>
+
+    <div id="username-field" data-field="username">
+      <label for="username" id="username-label">Username</label>
+      <input type="text" name="username" id="username" value="{{user.username }}" placeholder="Enter your username" required>
     </div>
-    <div class="input-field">
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" value="{{ user.password }}" required>
+
+    <div id="password-field" data-field="password">
+      <label for="password" id="password-label">New Password</label>
+      <input type="password" name="password" id="password" value="{{user.password }}"  placeholder="Enter new password" required>
     </div>
-    <button type="submit" class="btn">Save</button>
+
+    <button type="submit" id="save-btn">Save Changes</button>
   </form>
 </div>
+
 
 {% endblock %}

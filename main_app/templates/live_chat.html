@@ -1,10 +1,31 @@
 {% extends 'base.html' %} {% block content %}
-<div
-  id="chat-log"
-  style="border: 1px solid #ccc; height: 300px; overflow-y: auto; padding: 5px"
-></div>
-<input id="chat-message-input" type="text" size="100" />
-<input id="chat-message-submit" type="button" value="Send" />
+ <div class="chat-container">
+        <div class="header">
+            <h1>M-Hub 💬</h1>
+            <p>connect and discover in real time.</p>
+        </div>
+        
+        <div id="chat-log">
+            <div class="empty-state">
+                
+            </div>
+        </div>
+        
+        <div class="input-container">
+            <input
+                id="chat-message-input"
+                type="text"
+                placeholder="Type your message..."
+                autocomplete="off"
+            />
+            <input
+                id="chat-message-submit"
+                type="button"
+                value="Send"
+            />
+        </div>
+    </div>
+
 
 <script>
   const username = '{{ username }}' // passed from Django

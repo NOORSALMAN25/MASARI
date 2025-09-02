@@ -1,0 +1,132 @@
+/* .favpro-wrapper {
+  /* margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif; */
+  /* background: #f8fafc;
+} */ 
+
+.favpro-page {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 20px 60px;
+  border-radius: 20px;
+  text-align: left;
+  background: #f8fafc;
+}
+
+.favpro-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.favpro-university {
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid #e3f2fd;
+  padding-bottom: 2rem;
+}
+
+.favpro-uni-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.favpro-uni-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #e3f2fd;
+}
+
+.favpro-uni-img-placeholder {
+  width: 50px;
+  height: 50px;
+  background: #f0f0f0;
+  border-radius: 6px;
+  border: 1px solid #e3f2fd;
+}
+
+.favpro-uni-name {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.favpro-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1rem;
+  background: #fff;
+  width: 100%;
+  max-width: 950px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.favpro-card-content {
+  flex: 1;
+  margin-right: 1rem;
+}
+
+.favpro-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.favpro-program-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.favpro-program-level {
+  border: 1px solid #bbb;
+  border-radius: 20px;
+  padding: 0.25rem 0.9rem;
+  font-size: 0.85rem;
+  color: #333;
+  background: #fafafa;
+}
+
+.favpro-program-desc {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+.favpro-remove-form {
+  flex-shrink: 0;
+}
+
+.favpro-remove-btn {
+  background: #1e293b;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.favpro-remove-btn:hover {
+  background: #374151;
+}
+
+.favpro-empty {
+  font-size: 1.1rem;
+  color: #777;
+  text-align: left;
+  margin-top: 2rem;
+}

@@ -1,13 +1,184 @@
-{% extends 'base.html' %} {% block content %} {% if user.is_authenticated%}
-<h1>Welcome to Masari App</h1>
+{% extends 'base.html' %} {% block content %} {% load static %}
 
-{% else %}
-<div>
-  <div>
-    <a href="{% url 'signup' %}">Sign Up</a>
+<link
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+  rel="stylesheet"
+/>
+
+<div class="main-container">
+  <div class="welcome-container">
+    <h1>Welcome to Masari</h1>
+    <p>
+      Your guide to exploring universities, discovering programs, and shaping
+      your academic future.
+    </p>
+
+    {% if user.is_authenticated %}
+    <a href="{% url 'index' %}"
+      ><div class="icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24px"
+          viewBox="0 -960 960 960"
+          width="24px"
+          fill="#FFFFFF"
+        >
+          <path
+            d="M200-280v-280h80v280h-80Zm240 0v-280h80v280h-80ZM80-640v-80l400-200 400 200v80H80Zm179-80h442L480-830 259-720ZM80-120v-80h482q2 21 5 40.5t9 39.5H80Zm600-310v-130h80v90l-80 40ZM800 0q-69-17-114.5-79.5T640-218v-102l160-80 160 80v102q0 76-45.5 138.5T800 0Zm-29-120 139-138-42-42-97 95-39-39-42 43 81 81ZM259-720h442-442Z"
+          />
+        </svg>
+      </div>
+      Browse Universities</a
+    >
+    <a href="{% url 'map' %}"
+      ><div class="icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24px"
+          viewBox="0 -960 960 960"
+          width="24px"
+          fill="#FFFFFF"
+        >
+          <path
+            d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q152 0 263.5 98T876-538q-20-10-41.5-15.5T790-560q-19-73-68.5-130T600-776v16q0 33-23.5 56.5T520-680h-80v80q0 17-11.5 28.5T400-560h-80v80h240q11 0 20.5 5.5T595-459q-17 27-26 57t-9 62q0 63 32.5 117T659-122q-41 20-86 31t-93 11Zm-40-82v-78q-33 0-56.5-23.5T360-320v-40L168-552q-3 18-5.5 36t-2.5 36q0 121 79.5 212T440-162Zm340 82q-7 0-12-4t-7-10q-11-35-31-65t-43-59q-21-26-34-57t-13-65q0-58 41-99t99-41q58 0 99 41t41 99q0 34-13.5 64.5T873-218q-23 29-43 59t-31 65q-2 6-7 10t-12 4Zm0-113q10-17 22-31.5t23-29.5q14-19 24.5-40.5T860-340q0-33-23.5-56.5T780-420q-33 0-56.5 23.5T700-340q0 24 10.5 45.5T735-254q12 15 23.5 29.5T780-193Zm0-97q-21 0-35.5-14.5T730-340q0-21 14.5-35.5T780-390q21 0 35.5 14.5T830-340q0 21-14.5 35.5T780-290Z"
+          />
+        </svg>
+      </div>
+      View on Map</a
+    >
+    {% else %}
+    <a href="{% url 'signup' %}"
+      ><div class="icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24px"
+          viewBox="0 -960 960 960"
+          width="24px"
+          fill="#FFFFFF"
+        >
+          <path
+            d="M240-360h280l80-80H240v80Zm0-160h240v-80H240v80Zm-80-160v400h280l-80 80H80v-560h800v120h-80v-40H160Zm756 212q5 5 5 11t-5 11l-36 36-70-70 36-36q5-5 11-5t11 5l48 48ZM520-120v-70l266-266 70 70-266 266h-70ZM160-680v400-400Z"
+          />
+        </svg>
+      </div>
+      Sign Up</a
+    >
+    <a href="{% url 'login' %}"
+      ><div class="icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24px"
+          viewBox="0 -960 960 960"
+          width="24px"
+          fill="#FFFFFF"
+        >
+          <path
+            d="M480-120v-80h280v-560H480v-80h280q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H480Zm-80-160-55-58 102-102H120v-80h327L345-622l55-58 200 200-200 200Z"
+          />
+        </svg>
+      </div>
+      Sign In</a
+    >
+    {% endif %}
   </div>
-  <div>
-    <a href="{% url 'login' %}">Sign In</a>
+
+  <div class="slideshow-container">
+    <div class="slide fade">
+      <img
+        src="{% static 'images/uob-post.jpg' %}"
+        alt="University of Bahrain Campus"
+      />
+    </div>
+    <div class="slide fade">
+      <img src="{% static 'images/poly-post.jpg' %}" alt="Polytechnic Campus" />
+    </div>
+    <div class="slide fade">
+      <img
+        src="{% static 'images/bub-post.jpg' %}"
+        alt="British University of Bahrain Campus"
+      />
+    </div>
+    <div class="slide fade">
+      <img
+        src="{% static 'images/ag-post.jpg' %}"
+        alt="Arabian Gulf University Campus"
+      />
+    </div>
+    <div class="slide fade">
+      <img
+        src="{% static 'images/utb-post.jpg' %}"
+        alt="University of Technology Bahrain Campus"
+      />
+    </div>
+    <div class="slide fade">
+      <img
+        src="{% static 'images/aou-post.jpg' %}"
+        alt="Arab Open University Campus"
+      />
+    </div>
+    <div class="slide fade">
+      <img
+        src="{% static 'images/asu-post.jpg' %}"
+        alt="Applied Science University Campus"
+      />
+    </div>
+    <div class="slide fade">
+      <img
+        src="{% static 'images/gu-post.jpg' %}"
+        alt="Gulf University Campus"
+      />
+    </div>
+
+    <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+    <a class="next" onclick="changeSlide(1)">&#10095;</a>
+
+    <div class="dots-container">
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+      <span class="dot" onclick="currentSlide(4)"></span>
+      <span class="dot" onclick="currentSlide(5)"></span>
+      <span class="dot" onclick="currentSlide(6)"></span>
+      <span class="dot" onclick="currentSlide(7)"></span>
+      <span class="dot" onclick="currentSlide(8)"></span>
+    </div>
   </div>
 </div>
-{% endif %} {% endblock %}
+
+<script>
+  let slideIndex = 1
+  showSlide(slideIndex)
+
+  function changeSlide(n) {
+    showSlide((slideIndex += n))
+  }
+
+  function currentSlide(n) {
+    showSlide((slideIndex = n))
+  }
+
+  function showSlide(n) {
+    let slides = document.getElementsByClassName('slide')
+    let dots = document.getElementsByClassName('dot')
+
+    if (n > slides.length) slideIndex = 1
+    if (n < 1) slideIndex = slides.length
+
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].style.display = 'none'
+    }
+
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(' active', '')
+    }
+
+    slides[slideIndex - 1].style.display = 'block'
+    dots[slideIndex - 1].className += ' active'
+  }
+
+  setInterval(() => {
+    changeSlide(1)
+  }, 5000)
+</script>
+
+{% endblock %}
