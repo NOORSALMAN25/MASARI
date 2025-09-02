@@ -1,9 +1,0 @@
-Django
-daphne
-channels
-channels-redis
-psycopg2-binary
-gunicorn
-openai
-requests
-Pillow
