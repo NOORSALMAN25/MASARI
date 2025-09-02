@@ -1,102 +1,132 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="card">
-  <div class="card-content">
-    <h1>{{ program.name }}</h1>
-    <h2>{{ program.level }}</h2>
-    <p>Language: {{ program.language }}</p>
-    <p>Duration: {{ program.duration }}</p>
-    <p>Description: {{ program.description }}</p>
-    <p>Resources: <a href="{{ program.resources_link }}">website</a></p>
-    <p>Requirements: {{ program.requirements }}</p>
+<div class="progdetail-container">
+  <!-- Program Info Section -->
+  <div class="progdetail-header">
+    <div class="progdetail-title-section">
+      <h1 class="progdetail-name">{{ program.name }}</h1>
+      <span class="progdetail-level">{{ program.level }}</span>
+    </div>
+    
+    <div class="progdetail-info-grid">
+      <div class="progdetail-info-left">
+        <div class="progdetail-info-item">
+          <span class="progdetail-label">Language</span>
+          <span class="progdetail-value">{{ program.language }}</span>
+        </div>
+        <div class="progdetail-info-item">
+          <span class="progdetail-label">Duration</span>
+          <span class="progdetail-value">{{ program.duration }} years</span>
+        </div>
+        <div class="progdetail-info-item">
+          <span class="progdetail-label">Description</span>
+          <div class="progdetail-description">
+            <span class="progdetail-value">{{ program.description }}</span>
+          </div>
+        </div>
+        
+        <div class="progdetail-resources">
+          <span class="progdetail-label">Resources</span>
+          <div class="progdetail-resource-icons">
+            <a href="{{ program.resources_link }}" class="progdetail-resource-icon">🌐</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="progdetail-info-right">
+        <div class="progdetail-requirements">
+          <span class="progdetail-label">Requirements</span>
+            <div class="progdetail-description">
+            <span class="progdetail-value">{{ program.requirements }}</span>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 
-<hr>
-
-<div class="card">
-  <div class="card-content">
-    <h3>Questions</h3>
-
+  <!-- Questions Section -->
+  <div class="progdetail-questions-section">
+    <h3 class="progdetail-section-title">Questions</h3>
+    
     {% for question in questions %}
-      <div style="border:1px solid #ccc; padding:10px; margin-bottom:15px; border-radius:5px;">
-        <p><strong>{{ question.user.username }}</strong></p>
-
-        
-        <div id="question-view-{{ question.id }}">
-          <p>{{ question.question_txt }}</p>
-          
-          {% if request.user == question.user %}
-            
-            <button onclick="toggleEdit({{ question.id }})">✏️</button>
-            <form method="post" action="
-            {% url 'question_delete' question.id %}" style="display:inline;">
-              {% csrf_token %}
-              <button type="submit">🗑️</button>
-            </form>
-          {% endif %}
-        </div>
-
-        
-        <div id="question-edit-{{ question.id }}" style="display:none;">
-          <form method="post">
-            {% csrf_token %}
-            <input type="hidden" name="question_id" value="{{ question.id }}">
-
-          
-            <input type="text" name="question_txt" value="{{ question.question_txt }}" required>
-            <button type="submit" name="edit_question">💾 Save</button>
-            <button type="button" onclick="toggleEdit({{ question.id }})">❌ Cancel</button>
-          </form>
-        </div>
-
-        
-        <div style="margin-left:20px; margin-top:10px;">
-          {% for answer in question.answers.all %}
-            <p><strong>{{ answer.user.username }}</strong>: {{ answer.answer_txt }}</p>
-            {% if request.user == answer.user %}
-              <form method="post" action="
-              {% url 'answer_delete' answer.id %}" style="display:inline;">
+      <div class="progdetail-question-card">
+        <div class="progdetail-question-header">
+          <span class="progdetail-username">{{ question.user.username }}</span>
+          <div class="progdetail-question-actions">
+            {% if request.user == question.user %}
+              <button onclick="toggleEdit({{ question.id }})" class="progdetail-edit-btn">✏️</button>
+              <form method="post" action="{% url 'question_delete' question.id %}" class="progdetail-delete-form">
                 {% csrf_token %}
-                <button type="submit">🗑️</button>
+                <button type="submit" class="progdetail-delete-btn">🗑️</button>
               </form>
             {% endif %}
-          {% empty %}
-            <p>No answers yet.</p>
-          {% endfor %}
-
-          
-          <form method="post">
+          </div>
+        </div>
+        
+        <div id="question-view-{{ question.id }}" class="progdetail-question-content">
+          <p class="progdetail-question-text">{{ question.question_txt }}</p>
+        </div>
+        
+        <div id="question-edit-{{ question.id }}" class="progdetail-question-edit" style="display:none;">
+          <form method="post" class="progdetail-edit-form">
             {% csrf_token %}
-            <input type="text" name="answer_txt" placeholder="Write your answer..." required>
             <input type="hidden" name="question_id" value="{{ question.id }}">
-            <button type="submit" name="add_answer">↩️ Reply</button>
+            <input type="text" name="question_txt" value="{{ question.question_txt }}" 
+                   class="progdetail-edit-input" required>
+            <div class="progdetail-edit-actions">
+              <button type="submit" name="edit_question" class="progdetail-save-btn">💾</button>
+              <button type="button" onclick="toggleEdit({{ question.id }})" class="progdetail-cancel-btn">🗑️</button>
+            </div>
+          </form>
+        </div>
+        
+        <div class="progdetail-answers-section">
+          {% for answer in question.answers.all %}
+            <div class="progdetail-answer">
+              <span class="progdetail-answer-user">{{ answer.user.username }}</span>
+              <span class="progdetail-answer-text">{{ answer.answer_txt }}</span>
+              {% if request.user == answer.user %}
+                <form method="post" action="{% url 'answer_delete' answer.id %}" class="progdetail-answer-delete">
+                  {% csrf_token %}
+                  <button type="submit" class="progdetail-delete-btn">🗑️</button>
+                </form>
+              {% endif %}
+            </div>
+          {% empty %}
+            <p class="progdetail-no-answers">No answers yet.</p>
+          {% endfor %}
+          
+          <form method="post" class="progdetail-answer-form">
+            {% csrf_token %}
+            <input type="text" name="answer_txt" placeholder="..........................." 
+            class="progdetail-answer-input" required>
+            <input type="hidden" name="question_id" value="{{ question.id }}">
+            <button type="submit" name="add_answer" class="progdetail-reply-btn">↩️</button>
+            <button type="button" class="progdetail-answer-delete-btn">🗑️</button>
           </form>
         </div>
       </div>
     {% empty %}
-      <p>No questions yet for this program.</p>
+      <p class="progdetail-no-questions">No questions yet for this program.</p>
     {% endfor %}
   </div>
-</div>
 
-<hr>
-
-
-<div class="card">
-  <div class="card-content">
-    <h3>Add a Question</h3>
-    <form method="post">
+  <!-- Add Question Section -->
+  <div class="progdetail-add-question-section">
+    <h3 class="progdetail-section-title">Add a Question</h3>
+    <form method="post" class="progdetail-add-question-form">
       {% csrf_token %}
-      <input type="text" name="question_txt" placeholder="Ask your question..." required>
-      <button type="submit" name="add_question">ADD</button>
+      <input type="text" name="question_txt" placeholder="Add your question ............" 
+      class="progdetail-add-input" required>
+      <button type="submit" name="add_question" class="progdetail-add-btn">ADD</button>
     </form>
   </div>
 </div>
 
 <script>
-const toggleEdit=(id)=> {
+const toggleEdit = (id) => {
   const viewDiv = document.getElementById(`question-view-${id}`);
   const editDiv = document.getElementById(`question-edit-${id}`);
   if (viewDiv.style.display === "none") {
