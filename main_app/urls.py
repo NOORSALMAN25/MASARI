@@ -11,8 +11,7 @@ path('chat/', views.live_chat , name='live_chat' ),
 path('universities/', views.universities_index, name='index'),
 path('universities/<int:university_id>/', views.universities_detail, name='detail'),
 
-# if need programs shown in another page not in uni
-# path('universities/<int:university_id>/programs/', views.programs_index, name='program_index'),
+
 
 path('universities/<int:university_id>/programs/<int:program_id>/', views.programs_detail, name='program_detail'),
 

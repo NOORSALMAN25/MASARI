@@ -2,7 +2,6 @@
 {% block content %}
 
 <div class="progdetail-container">
-  <!-- Program Info Section -->
   <div class="progdetail-header">
     <div class="progdetail-title-section">
       <h1 class="progdetail-name">{{ program.name }}</h1>
@@ -46,7 +45,6 @@
     </div>
   </div>
 
-  <!-- Questions Section -->
   <div class="progdetail-questions-section">
     <h3 class="progdetail-section-title">Questions</h3>
     
@@ -74,7 +72,7 @@
             {% csrf_token %}
             <input type="hidden" name="question_id" value="{{ question.id }}">
             <input type="text" name="question_txt" value="{{ question.question_txt }}" 
-                   class="progdetail-edit-input" required>
+                  class="progdetail-edit-input" required>
             <div class="progdetail-edit-actions">
               <button type="submit" name="edit_question" class="progdetail-save-btn">💾</button>
               <button type="button" onclick="toggleEdit({{ question.id }})" class="progdetail-cancel-btn">🗑️</button>
@@ -113,7 +111,6 @@
     {% endfor %}
   </div>
 
-  <!-- Add Question Section -->
   <div class="progdetail-add-question-section">
     <h3 class="progdetail-section-title">Add a Question</h3>
     <form method="post" class="progdetail-add-question-form">
