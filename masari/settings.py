@@ -96,7 +96,7 @@ CHANNEL_LAYERS = {
 if 'ON_RENDER' in os.environ:
     DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://postgres:12345@localhost:5432/masari',
+        default='postgresql://masari_user:Hl3mOt9G8TDeebIR36x6e02IY0rZobqt@dpg-d2rddh7diees73e7reu0-a.oregon-postgres.render.com/masari',
         conn_max_age=600
     )
     }
