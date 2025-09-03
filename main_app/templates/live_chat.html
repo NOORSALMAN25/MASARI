@@ -33,7 +33,10 @@
   const messageInput = document.querySelector('#chat-message-input')
 
   const chatSocket = new WebSocket(
-    'ws://' + window.location.host + '/ws/main_app/'
+
+    (window.location.protocol === "https:" ? "wss://" : "ws://") 
+    + window.location.host 
+    + "/ws/main_app/"
   )
 
   chatSocket.onmessage = function (e) {
