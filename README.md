@@ -4,7 +4,7 @@
 **Developed By** [Noor Salman](https://github.com/NOORSALMAN25) | [Yara](https://github.com/Yara-Waleed) | [Fatema Albasri](https://github.com/fatemaAlbasri) 
 
 ## Description
-Masari provides a complete overview of universities in Bahrain and the majors they offer, all in one place. It allows students to compare institutions, explore detailed information about programs, and make informed choices about their academic future. The platform also enables students to ask questions and receive answers, creating a more supportive and interactive decision-making process. | [Access Masari Here]() |
+Masari provides a complete overview of universities in Bahrain and the majors they offer, all in one place. It allows students to compare institutions, explore detailed information about programs, and make informed choices about their academic future. The platform also enables students to ask questions and receive answers, creating a more supportive and interactive decision-making process. | [Access Masari Here](https://masari-r18y.onrender.com/) |
 <br>
   <img src="readmeimg/ChatGPT Image 30 أغسطس 2025، 09_39_41 م.png" alt="Masari Logo">
 
